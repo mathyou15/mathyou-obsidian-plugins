@@ -155,6 +155,16 @@ function buildDecorations(view) {
       );
 
       if (selectionTouchesTag) {
+        const colorToken = match.groups?.color || "";
+        const colorStart = start + match[0].indexOf(colorToken);
+        const colorEnd = colorStart + colorToken.length;
+        builder.add(
+          colorStart,
+          colorEnd,
+          Decoration.mark({
+            class: `apt-active-color-source apt-${color.id}`,
+          })
+        );
         builder.add(
           end,
           end,
@@ -309,12 +319,6 @@ class InlineTagPicker {
   build() {
     const doc = this.view.dom.ownerDocument;
 
-    this.chip = doc.createElement("button");
-    this.chip.type = "button";
-    this.chip.className = "apt-color-chip";
-    this.chip.title = "Цвет тега";
-    this.chip.setAttribute("aria-label", "Открыть палитру тега");
-
     this.dom = doc.createElement("div");
     this.dom.className = "apt-inline-picker";
     this.dom.setAttribute("role", "toolbar");
@@ -351,15 +355,18 @@ class InlineTagPicker {
     }
 
     this.dom.append(shapeRow, divider, colorGrid);
-    doc.body.append(this.chip, this.dom);
+    doc.body.append(this.dom);
 
-    this.chip.addEventListener("pointerdown", (event) => {
+    this.onTagPointerDown = (event) => {
+      const source = event.target?.closest?.(".apt-active-color-source");
+      if (!source || !this.view.dom.contains(source)) return;
       event.preventDefault();
       event.stopPropagation();
       this.menuOpen = !this.menuOpen;
       this.dom.classList.toggle("is-visible", this.menuOpen);
       this.schedulePosition();
-    });
+    };
+    this.view.dom.addEventListener("pointerdown", this.onTagPointerDown);
 
     this.dom.addEventListener("pointerdown", (event) => {
       event.preventDefault();
@@ -375,7 +382,12 @@ class InlineTagPicker {
 
     this.onOutsidePointerDown = (event) => {
       const target = event.target;
-      if (this.dom.contains(target) || this.chip.contains(target)) return;
+      if (
+        this.dom.contains(target) ||
+        target?.closest?.(".apt-active-color-source")
+      ) {
+        return;
+      }
       this.menuOpen = false;
       this.dom.classList.remove("is-visible");
     };
@@ -400,8 +412,6 @@ class InlineTagPicker {
       return;
     }
 
-    this.chip.className = `apt-color-chip apt-${this.activeTag.color.id} is-visible`;
-    this.chip.title = this.activeTag.color.name;
     this.dom.classList.toggle("is-visible", this.menuOpen);
     this.updateSelection();
     this.schedulePosition();
@@ -424,33 +434,23 @@ class InlineTagPicker {
   schedulePosition() {
     cancelAnimationFrame(this.frame);
     this.frame = requestAnimationFrame(() => {
-      if (!this.activeTag || !this.chip.classList.contains("is-visible")) return;
+      if (!this.activeTag || !this.menuOpen) return;
 
-      const coordinates = this.view.coordsAtPos(this.activeTag.start);
+      const coordinates = this.view.coordsAtPos(this.activeTag.colorStart);
       if (!coordinates) return;
 
-      const chip = this.chip.getBoundingClientRect();
       const gap = 8;
-      const chipLeft = Math.max(gap, coordinates.left - chip.width - 6);
-      const chipTop = coordinates.top + (coordinates.bottom - coordinates.top - chip.height) / 2;
-      this.chip.style.left = `${chipLeft}px`;
-      this.chip.style.top = `${chipTop}px`;
-
-      if (!this.menuOpen) return;
-
       const bounds = this.dom.getBoundingClientRect();
       const viewportWidth =
         this.view.dom.ownerDocument.defaultView?.innerWidth || window.innerWidth;
-      const viewportHeight =
-        this.view.dom.ownerDocument.defaultView?.innerHeight || window.innerHeight;
 
-      let top = chipTop - bounds.height - 6;
+      let top = coordinates.top - bounds.height - 6;
       if (top < gap) {
-        top = chipTop + chip.height + 6;
+        top = coordinates.bottom + 6;
       }
 
       const left = Math.min(
-        Math.max(gap, chipLeft),
+        Math.max(gap, coordinates.left),
         viewportWidth - bounds.width - gap
       );
 
@@ -486,18 +486,17 @@ class InlineTagPicker {
 
   hide() {
     this.menuOpen = false;
-    this.chip.classList.remove("is-visible");
     this.dom.classList.remove("is-visible");
   }
 
   destroy() {
     cancelAnimationFrame(this.frame);
+    this.view.dom.removeEventListener("pointerdown", this.onTagPointerDown);
     this.view.dom.ownerDocument.removeEventListener(
       "pointerdown",
       this.onOutsidePointerDown,
       true
     );
-    this.chip.remove();
     this.dom.remove();
   }
 }

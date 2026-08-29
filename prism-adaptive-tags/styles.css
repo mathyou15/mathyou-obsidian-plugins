@@ -325,24 +325,26 @@
   gap: 6px;
 }
 
-.apt-color-chip {
-  position: fixed;
-  z-index: var(--layer-popover, 1000);
-  width: 16px;
-  height: 16px;
-  padding: 0;
-  border: 1px solid var(--apt-fg);
-  border-radius: 50%;
-  background: var(--apt-fg) !important;
-  box-shadow: none;
+.apt-active-color-source {
+  position: relative;
+  display: inline-block;
+  padding-inline-start: 1.2em;
   cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
 }
 
-.apt-color-chip.is-visible {
-  opacity: 1;
-  pointer-events: auto;
+.apt-active-color-source::before {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 0.12em;
+  width: 0.78em;
+  height: 0.78em;
+  border: 1px solid color-mix(in srgb, var(--apt-fg) 72%, transparent);
+  border-radius: 50%;
+  box-sizing: border-box;
+  background: var(--apt-fg) !important;
+  box-shadow: none;
+  content: "";
+  transform: translateY(-50%);
 }
 
 .apt-inline-picker__swatch {
