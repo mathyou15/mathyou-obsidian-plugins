@@ -14,7 +14,13 @@
 
 ## Доступные блоки
 
-![Блоки Math Pages Palette в Prism Dark](https://mathyou15.github.io/mathyou-obsidian-plugins/math-pages-palette/assets/preview-prism-black.png)
+<p align="center">
+  <img
+    src="https://mathyou15.github.io/mathyou-obsidian-plugins/math-pages-palette/assets/preview-prism-compact.png"
+    alt="Блоки Math Pages Palette в Prism Dark"
+    width="85%"
+  >
+</p>
 
 ## Совместимость
 
