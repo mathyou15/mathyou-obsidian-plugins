@@ -1,0 +1,1047 @@
+/* Палитра Лейка/pages → Obsidian callouts
+   Коробка как у Prism/Abstract: шапка 2px + тело 1px того же акцента.
+   Без своей третьей рамки на .callout. Штатные note/example не трогаем.
+*/
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+):not(.custom-callout-context-menu-appearance) {
+  --callout-opacity: 0.1;
+  overflow: visible;
+  border: none !important;
+  background-color: unset !important;
+  mix-blend-mode: normal;
+  box-shadow: none;
+}
+
+
+/* Cluddle insert: те же глифы/SVG, что в заметке, не Lucide */
+.custom-callout-context-menu-appearance.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) {
+  --custom-callout-context-color: rgb(var(--callout-color));
+  overflow: hidden;
+  border: 1px solid rgb(var(--callout-color)) !important;
+  background-color: rgba(var(--callout-color), 0.1) !important;
+  border-radius: var(--callout-radius, 4px);
+  padding: 0.2rem 0.38rem 0.2rem 0.32rem;
+  min-height: 1.9rem;
+  box-sizing: border-box;
+  box-shadow: none !important;
+  mix-blend-mode: normal;
+}
+.custom-callout-context-menu-appearance.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .menu-item-title {
+  color: rgb(var(--callout-color)) !important;
+  font-weight: 700;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.custom-callout-context-menu-appearance.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .menu-item-icon {
+  color: rgb(var(--callout-color));
+  overflow: visible;
+}
+.custom-callout-context-menu-appearance.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .menu-item-icon svg {
+  display: none !important;
+}
+
+/* Insert: колонка Cluddle 9rem — «Доказательство» не влезает */
+.custom-callout-context-menu-group:has(.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+)),
+.custom-callout-context-menu-item:has(.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+)) {
+  --custom-callout-column-width: 11.35rem;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .callout-title {
+  font-weight: 700;
+  color: rgb(var(--callout-color));
+  align-items: center;
+  /* Opaque mix: Prism places the body 16px underneath the title. */
+  background-color: color-mix(
+    in srgb,
+    rgb(var(--callout-color)) 22%,
+    var(--background-primary)
+  ) !important;
+  border-color: rgb(var(--callout-color)) !important;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .callout-content {
+  background-color: color-mix(
+    in srgb,
+    rgb(var(--callout-color)) 12%,
+    var(--background-primary)
+  ) !important;
+  border-color: rgb(var(--callout-color)) !important;
+}
+
+/* слот как у Lucide (~1em); размер и сдвиг — оптический центр с заголовком */
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .callout-icon,
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .menu-item-icon {
+  --icon-size: 1.08em;
+  --icon-shift: 0.04em;
+  --icon-pos: center;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 1.125em !important;
+  height: 1.125em !important;
+  flex: 0 0 1.125em;
+  overflow: visible;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .callout-icon svg ,
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .menu-item-icon svg {
+  display: none !important;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .callout-icon::before ,
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="билет"], [data-callout="bilet"]
+) .menu-item-icon::before {
+  font-family: "Segoe UI Symbol", "Cambria Math", "Cambria", serif !important;
+  font-size: var(--icon-size);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform: translateY(var(--icon-shift));
+  color: rgb(var(--callout-color));
+  font-variant-emoji: text;
+}
+
+.callout[data-callout="определение"], .callout[data-callout="def"], .callout[data-callout="definition"] {
+  --callout-color: 46, 139, 87;
+  --callout-icon: lucide-gem;
+  --callout-groups: palette;
+  --callout-group-palette: определение def definition;
+}
+.callout[data-callout="определение"] .callout-icon,
+.callout[data-callout="определение"] .menu-item-icon,
+.callout[data-callout="def"] .callout-icon,
+.callout[data-callout="def"] .menu-item-icon,
+.callout[data-callout="definition"] .callout-icon,
+.callout[data-callout="definition"] .menu-item-icon {
+  --icon-size: 1.06em;
+  --icon-shift: 0.02em;
+}
+.callout[data-callout="определение"] .callout-icon::before,
+.callout[data-callout="определение"] .menu-item-icon::before, .callout[data-callout="def"] .callout-icon::before,
+ .callout[data-callout="def"] .menu-item-icon::before, .callout[data-callout="definition"] .callout-icon::before ,
+ .callout[data-callout="definition"] .menu-item-icon::before {
+  content: "❖";
+}
+.callout[data-callout="теорема"], .callout[data-callout="thm"], .callout[data-callout="theorem"] {
+  --callout-color: 199, 62, 96;
+  --callout-icon: lucide-star;
+  --callout-groups: palette;
+  --callout-group-palette: теорема thm theorem;
+}
+.callout[data-callout="теорема"] .callout-icon,
+.callout[data-callout="теорема"] .menu-item-icon,
+.callout[data-callout="thm"] .callout-icon,
+.callout[data-callout="thm"] .menu-item-icon,
+.callout[data-callout="theorem"] .callout-icon,
+.callout[data-callout="theorem"] .menu-item-icon {
+  --icon-size: 1.10em;
+  --icon-shift: 0.05em;
+}
+.callout[data-callout="теорема"] .callout-icon::before,
+.callout[data-callout="теорема"] .menu-item-icon::before, .callout[data-callout="thm"] .callout-icon::before,
+ .callout[data-callout="thm"] .menu-item-icon::before, .callout[data-callout="theorem"] .callout-icon::before ,
+ .callout[data-callout="theorem"] .menu-item-icon::before {
+  content: "★";
+}
+.callout[data-callout="лемма"], .callout[data-callout="lem"], .callout[data-callout="lemma"] {
+  --callout-color: 136, 84, 208;
+  --callout-icon: lucide-sparkles;
+  --callout-groups: palette;
+  --callout-group-palette: лемма lem lemma;
+}
+.callout[data-callout="лемма"] .callout-icon,
+.callout[data-callout="лемма"] .menu-item-icon,
+.callout[data-callout="lem"] .callout-icon,
+.callout[data-callout="lem"] .menu-item-icon,
+.callout[data-callout="lemma"] .callout-icon,
+.callout[data-callout="lemma"] .menu-item-icon {
+  --icon-size: 1.12em;
+  --icon-shift: 0.03em;
+}
+.callout[data-callout="лемма"] .callout-icon::before,
+.callout[data-callout="лемма"] .menu-item-icon::before, .callout[data-callout="lem"] .callout-icon::before,
+ .callout[data-callout="lem"] .menu-item-icon::before, .callout[data-callout="lemma"] .callout-icon::before ,
+ .callout[data-callout="lemma"] .menu-item-icon::before {
+  content: "✴";
+}
+.callout[data-callout="замечание"], .callout[data-callout="заметка"] {
+  --callout-color: 194, 71, 154;
+  --callout-icon: lucide-diamond;
+  --callout-groups: palette;
+  --callout-group-palette: замечание заметка;
+}
+.callout[data-callout="замечание"] .callout-icon,
+.callout[data-callout="замечание"] .menu-item-icon,
+.callout[data-callout="заметка"] .callout-icon,
+.callout[data-callout="заметка"] .menu-item-icon {
+  --icon-size: 1.06em;
+  --icon-shift: 0.05em;
+}
+.callout[data-callout="замечание"] .callout-icon::before,
+.callout[data-callout="замечание"] .menu-item-icon::before,
+.callout[data-callout="заметка"] .callout-icon::before,
+.callout[data-callout="заметка"] .menu-item-icon::before {
+  content: "◈";
+}
+.callout[data-callout="пример"], .callout[data-callout="ex"] {
+  --callout-color: 46, 125, 233;
+  --callout-icon: lucide-sparkle;
+  --callout-groups: palette;
+  --callout-group-palette: пример ex;
+}
+.callout[data-callout="пример"] .callout-icon,
+.callout[data-callout="пример"] .menu-item-icon,
+.callout[data-callout="ex"] .callout-icon,
+.callout[data-callout="ex"] .menu-item-icon {
+  --icon-size: 1.08em;
+  --icon-shift: 0.02em;
+}
+.callout[data-callout="пример"] .callout-icon::before,
+.callout[data-callout="пример"] .menu-item-icon::before,
+.callout[data-callout="ex"] .callout-icon::before,
+.callout[data-callout="ex"] .menu-item-icon::before {
+  content: "✦";
+}
+.callout[data-callout="свойства"], .callout[data-callout="prop"], .callout[data-callout="properties"] {
+  --callout-color: 0, 143, 214;
+  --callout-icon: lucide-snowflake;
+  --callout-groups: palette;
+  --callout-group-palette: свойства prop properties;
+}
+.callout[data-callout="свойства"] .callout-icon,
+.callout[data-callout="свойства"] .menu-item-icon,
+.callout[data-callout="prop"] .callout-icon,
+.callout[data-callout="prop"] .menu-item-icon,
+.callout[data-callout="properties"] .callout-icon ,
+.callout[data-callout="properties"] .menu-item-icon {
+  --icon-size: 1.95em;
+  --icon-shift: 0.22em;
+}
+.callout[data-callout="свойства"] .callout-icon::before,
+.callout[data-callout="свойства"] .menu-item-icon::before, .callout[data-callout="prop"] .callout-icon::before,
+ .callout[data-callout="prop"] .menu-item-icon::before, .callout[data-callout="properties"] .callout-icon::before ,
+ .callout[data-callout="properties"] .menu-item-icon::before {
+  content: "❅";
+}
+.callout[data-callout="соглашение"], .callout[data-callout="conv"], .callout[data-callout="convention"] {
+  --callout-color: 221, 159, 34;
+  --callout-icon: lucide-sun;
+  --callout-groups: palette;
+  --callout-group-palette: соглашение conv convention;
+}
+.callout[data-callout="соглашение"] .callout-icon,
+.callout[data-callout="соглашение"] .menu-item-icon,
+.callout[data-callout="conv"] .callout-icon,
+.callout[data-callout="conv"] .menu-item-icon,
+.callout[data-callout="convention"] .callout-icon ,
+.callout[data-callout="convention"] .menu-item-icon {
+  --icon-size: 1.48em;
+  --icon-shift: 0.14em;
+}
+.callout[data-callout="соглашение"] .callout-icon::before,
+.callout[data-callout="соглашение"] .menu-item-icon::before, .callout[data-callout="conv"] .callout-icon::before,
+ .callout[data-callout="conv"] .menu-item-icon::before, .callout[data-callout="convention"] .callout-icon::before ,
+ .callout[data-callout="convention"] .menu-item-icon::before {
+  content: "☀";
+}
+.callout[data-callout="доказательство"], .callout[data-callout="proof"], .callout[data-callout="prf"] {
+  --callout-color: 92, 110, 126;
+  --callout-icon: lucide-play;
+  --callout-groups: palette;
+  --callout-group-palette: доказательство proof prf;
+}
+.callout[data-callout="доказательство"] .callout-icon,
+.callout[data-callout="доказательство"] .menu-item-icon,
+.callout[data-callout="proof"] .callout-icon,
+.callout[data-callout="proof"] .menu-item-icon,
+.callout[data-callout="prf"] .callout-icon ,
+.callout[data-callout="prf"] .menu-item-icon {
+  --icon-size: 1.08em;
+  --icon-shift: 0.04em;
+}
+.callout[data-callout="доказательство"] .callout-icon::before,
+.callout[data-callout="доказательство"] .menu-item-icon::before, .callout[data-callout="proof"] .callout-icon::before,
+ .callout[data-callout="proof"] .menu-item-icon::before, .callout[data-callout="prf"] .callout-icon::before ,
+ .callout[data-callout="prf"] .menu-item-icon::before {
+  content: "▶";
+}
+.callout[data-callout="следствие"], .callout[data-callout="cor"], .callout[data-callout="corollary"] {
+  --callout-color: 221, 122, 82;
+  --callout-icon: lucide-sparkle;
+  --callout-groups: palette;
+  --callout-group-palette: следствие cor corollary;
+}
+.callout[data-callout="следствие"] .callout-icon svg,
+.callout[data-callout="следствие"] .menu-item-icon svg,
+.callout[data-callout="cor"] .callout-icon svg,
+.callout[data-callout="cor"] .menu-item-icon svg,
+.callout[data-callout="corollary"] .callout-icon svg ,
+.callout[data-callout="corollary"] .menu-item-icon svg {
+  display: none !important;
+}
+.callout[data-callout="следствие"] .callout-icon,
+.callout[data-callout="следствие"] .menu-item-icon,
+.callout[data-callout="cor"] .callout-icon,
+.callout[data-callout="cor"] .menu-item-icon,
+.callout[data-callout="corollary"] .callout-icon ,
+.callout[data-callout="corollary"] .menu-item-icon {
+  --icon-size: 1.72em;
+  --icon-shift: 0.12em;
+  --icon-pos: center;
+  width: 1.125em !important;
+  height: 1.125em !important;
+  flex-basis: 1.125em;
+  transform: translateY(var(--icon-shift));
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-0.45 -0.45 0.9 0.9'%3E%3Cg transform='scale(1,-1)'%3E%3Cpath fill='%23DD7A52' d='M0 0.405L0.074 0.258C0.048 0.19 0.026 0.125 0.02 0.084C0.028 0.056 0.062 0.022 0.088 0.016C0.108 0.016 0.18 0.048 0.258 0.074L0.405 0L0.258-0.074C0.18-0.048 0.108-0.016 0.088-0.016C0.062-0.022 0.028-0.056 0.02-0.084C0.026-0.125 0.048-0.19 0.074-0.258L0-0.405L-0.074-0.258C-0.048-0.19-0.026-0.125-0.02-0.084C-0.028-0.056-0.062-0.022-0.088-0.016C-0.108-0.016-0.18-0.048-0.258-0.074L-0.405 0L-0.258 0.074C-0.18 0.048-0.108 0.016-0.088 0.016C-0.062 0.022-0.028 0.056-0.02 0.084C-0.026 0.125-0.048 0.19-0.074 0.258Z'/%3E%3C/g%3E%3C/svg%3E") var(--icon-pos) / var(--icon-size) no-repeat;
+}
+.callout[data-callout="интуиция"], .callout[data-callout="intu"], .callout[data-callout="intuition"] {
+  --callout-color: 18, 148, 130;
+  --callout-icon: lucide-clover;
+  --callout-groups: palette;
+  --callout-group-palette: интуиция intu intuition;
+}
+.callout[data-callout="интуиция"] .callout-icon svg,
+.callout[data-callout="интуиция"] .menu-item-icon svg, .callout[data-callout="intu"] .callout-icon svg,
+ .callout[data-callout="intu"] .menu-item-icon svg, .callout[data-callout="intuition"] .callout-icon svg ,
+ .callout[data-callout="intuition"] .menu-item-icon svg { display: none !important; }
+.callout[data-callout="интуиция"] .callout-icon,
+.callout[data-callout="интуиция"] .menu-item-icon, .callout[data-callout="intu"] .callout-icon,
+ .callout[data-callout="intu"] .menu-item-icon, .callout[data-callout="intuition"] .callout-icon ,
+ .callout[data-callout="intuition"] .menu-item-icon {
+  --icon-size: 1.42em;
+  --icon-shift: 0.02em;
+  --icon-pos: 50% 47%;
+  width: 1.125em !important;
+  height: 1.125em !important;
+  flex-basis: 1.125em;
+  transform: translateY(var(--icon-shift));
+  background: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20xmlns:xlink=%22http://www.w3.org/1999/xlink%22%20xmlns:inkscape=%22http://www.inkscape.org/namespaces/inkscape%22%20version=%221.1%22%20width=%22606.75%22%20height=%22651%22%20viewBox=%220%200%20606.75%20651%22%3E%3Cg%3E%3Cpath%20d=%22M257.44%20649.78%20254.06%20649.22%20250.59%20648.23%20247.03%20646.83%20243.38%20645%20239.62%20642.75%20236.32%20640.57%20233.46%20638.46%20231.05%20636.42%20229.08%20634.45%20227.32%20632.23%20225.77%20629.75%20224.44%20627%20223.31%20624%20222.61%20621.14%20222.33%20618.42%20222.47%20615.84%20223.03%20613.41%20224.62%20610.08%20227.25%20605.86%20230.91%20600.75%20235.59%20594.75%20240.19%20588.52%20244.69%20582.05%20249.09%20575.34%20253.41%20568.41%20257.25%20561.94%20260.62%20555.94%20263.54%20550.41%20265.96%20545.34%20268.55%20539.44%20271.27%20532.69%20274.12%20525.09%20277.12%20516.66%20279.84%20508.36%20282.29%20500.2%20284.44%20492.19%20286.31%20484.31%20288%20476.39%20289.5%20468.42%20290.81%20460.41%20291.94%20452.34%20292.88%20442.31%20293.62%20430.31%20294.19%20416.34%20294.56%20400.41%20293.71%20391.12%20291.66%20388.5%20288.38%20392.54%20283.88%20403.21%20279.38%20413.34%20274.88%20422.91%20270.38%20431.91%20265.88%20440.34%20260.95%20448.88%20255.61%20457.5%20249.84%20466.21%20243.66%20475.04%20237.59%20483.07%20231.63%20490.34%20225.8%20496.83%20220.08%20502.55%20214.34%20507.82%20208.57%20512.65%20202.78%20517.03%20196.97%20520.97%20190.92%20524.58%20184.64%20527.86%20178.12%20530.81%20171.38%20533.44%20165.61%20535.55%20160.83%20537.14%20157.03%20538.22%20154.22%20538.78%20150.89%20539.25%20147.05%20539.62%20142.69%20539.91%20137.81%20540.09%20132.75%20540%20127.5%20539.62%20122.06%20538.97%20116.44%20538.03%20110.91%20536.77%20105.47%20535.17%20100.12%20533.25%2094.88%20531%2090.19%20528.8%2086.06%20526.64%2082.5%20524.53%2079.5%20522.47%2076.38%20520.06%2073.15%20517.29%2069.8%20514.17%2066.33%20510.7%2062.98%20506.93%2059.75%20502.85%2056.62%20498.46%2053.62%20493.79%2050.86%20488.67%2048.33%20483.14%2046.03%20477.19%2043.97%20470.81%2042.38%20464.44%2041.25%20458.06%2040.59%20451.69%2040.41%20445.31%2040.59%20439.21%2041.16%20433.41%2042.09%20427.88%2043.41%20422.62%2044.72%20418.08%2046.03%20414.23%2047.34%20411.09%2048.66%20408.66%2048.25%20405.91%2046.15%20402.87%2042.33%20399.52%2036.8%20395.86%2031.88%20392.25%2027.56%20388.69%2023.86%20385.17%2020.77%20381.7%2017.98%20378.31%2015.5%20374.98%2013.31%20371.71%2011.44%20368.54%209.7%20365.3%208.11%20362.02%206.66%20358.69%205.34%20355.31%204.12%20351.66%203%20347.71%201.97%20343.5%201.03%20339%20.328%20334.17-.141%20329.02-.375%20323.54V317.71L-.285%20312.75-.09%20308.62%20.188%20305.34%20.563%20302.91%201.08%20300.23%201.73%20297.33%202.54%20294.19%203.46%20290.81%204.64%20287.3%206.05%20283.64%207.69%20279.84%209.56%20275.91%2011.54%20272.16%2013.59%20268.59%2015.75%20265.21%2018%20262.04%2020.5%20258.82%2023.27%20255.59%2026.3%20252.33%2029.58%20249.05%2033.02%20245.93%2036.63%20242.98%2040.41%20240.19%2044.34%20237.56%2048.14%20235.22%2051.8%20233.16%2055.31%20231.38%2058.69%20229.88%2063.05%20228.33%2068.39%20226.73%2074.72%20225.09%2082.03%20223.41%2089.77%20222.19%2097.92%20221.44%20106.5%20221.16%20115.5%20221.34%20124.45%20222%20133.36%20223.12%20142.22%20224.72%20151.03%20226.78%20159.52%20229.08%20167.67%20231.61%20175.5%20234.38%20183%20237.38%20190.27%20240.47%20197.3%20243.66%20204.09%20246.94%20210.66%20250.31%20216.66%20253.55%20222.09%20256.64%20226.97%20259.59%20231.28%20262.41%20231.16%20260.69%20226.62%20254.46%20217.64%20243.7%20204.23%20228.42%20193.06%20215.27%20184.1%20204.25%20177.38%20195.38%20172.88%20188.62%20168.66%20181.78%20164.72%20174.84%20161.06%20167.81%20157.69%20160.69%20154.64%20153.42%20151.92%20146.02%20149.53%20138.47%20147.47%20130.78%20145.83%20123.47%20144.61%20116.53%20143.81%20109.97%20143.44%20103.78V97.41L143.81%2090.84%20144.56%2084.09%20145.69%2077.16%20147.14%2070.55%20148.92%2064.27%20151.03%2058.31%20153.47%2052.69%20155.91%2047.62%20158.34%2043.12%20160.78%2039.19%20163.22%2035.81%20166.1%2032.32%20169.43%2028.71%20173.2%2024.98%20177.42%2021.14%20181.52%2017.75%20185.5%2014.79%20189.38%2012.29%20193.12%2010.21%20197.16%208.3%20201.47%206.52%20206.06%204.88%20210.94%203.38%20215.86%202.16%20220.83%201.22%20225.84%20.563%20230.91%20.188%20236.34%20.234%20242.16%20.703%20248.34%201.59%20254.91%202.91%20261.29%204.73%20267.46%207.08%20273.46%209.94%20279.29%2013.31%20284.58%2016.83%20289.36%2020.48%20293.62%2024.29%20297.38%2028.21%20301.41%2030%20305.71%2029.62%20310.31%2027.09%20315.19%2022.41%20320.06%2018.23%20324.94%2014.58%20329.81%2011.44%20334.69%208.81%20339.42%206.56%20344.02%204.69%20348.46%203.19%20352.79%202.06%20357%201.17%20361.12%20.516%20365.16%20.09%20369.09-.09%20372.84-.141%20376.41-.047%20379.79%20.188%20382.96%20.563%20386.34%201.12%20389.91%201.88%20393.66%202.81%20397.59%203.94%20401.62%205.34%20405.75%207.04%20409.96%209%20414.29%2011.25%20418.31%2013.59%20422.06%2016.04%20425.54%2018.56%20428.71%2021.19%20431.84%2024.02%20434.88%2027.07%20437.86%2030.33%20440.77%2033.8%20443.46%2037.29%20445.94%2040.81%20448.21%2044.34%20450.29%2047.91%20452.2%2051.61%20453.98%2055.45%20455.62%2059.44%20457.12%2063.56%20458.44%2067.59%20459.56%2071.53%20460.5%2075.38%20461.25%2079.12%20461.86%2083.25%20462.33%2087.75%20462.66%2092.62%20462.84%2097.88V103.03L462.66%20108.09%20462.29%20113.06%20461.71%20117.94%20461.02%20122.72%20460.17%20127.41%20459.19%20132%20458.06%20136.5%20456.75%20141.09%20455.25%20145.78%20453.56%20150.56%20451.69%20155.44%20449.67%20160.27%20447.52%20165.05%20445.21%20169.78%20442.79%20174.47%20440.02%20179.39%20436.92%20184.55%20433.5%20189.94%20429.75%20195.56%20426.05%20200.91%20422.39%20205.97%20418.79%20210.75%20415.21%20215.25%20410.11%20221.3%20403.45%20228.89%20395.25%20238.03%20385.5%20248.72%20381.07%20255.16%20381.96%20257.37%20388.17%20255.33%20399.7%20249.05%20409.38%20243.91%20417.21%20239.93%20423.19%20237.09%20427.31%20235.41%20432.14%20233.62%20437.67%20231.75%20443.91%20229.78%20450.84%20227.72%20457.55%20225.94%20464.02%20224.44%20470.25%20223.22%20476.25%20222.28%20482.39%20221.58%20488.67%20221.11%20495.09%20220.88H501.66L508.36%20221.25%20515.2%20222%20522.19%20223.12%20529.31%20224.62%20535.55%20226.12%20540.89%20227.62%20545.34%20229.12%20548.91%20230.62%20552.7%20232.5%20556.73%20234.75%20561%20237.38%20565.5%20240.38%20569.6%20243.35%20573.31%20246.31%20576.61%20249.23%20579.52%20252.14%20582.31%20255.16%20584.98%20258.31%20587.53%20261.56%20589.97%20264.94%20592.36%20268.73%20594.7%20272.95%20597%20277.59%20599.25%20282.66%20601.12%20287.25%20602.62%20291.38%20603.75%20295.04%20604.5%20298.21%20605.06%20302.77%20605.44%20308.67%20605.62%20315.94V324.56L605.3%20332.25%20604.64%20339%20603.66%20344.81%20602.34%20349.69%20600.7%20354.56%20598.73%20359.44%20596.44%20364.31%20593.81%20369.19%20590.98%20373.81%20587.93%20378.16%20584.67%20382.27%20581.2%20386.11%20577.36%20389.81%20573.14%20393.38%20568.55%20396.8%20563.58%20400.08%20560.13%20403.15%20558.21%20406%20557.81%20408.66%20558.94%20411.09%20560.06%20413.91%20561.19%20417.09%20562.31%20420.66%20563.44%20424.59%20564.33%20429.19%20564.98%20434.44%20565.41%20440.34%20565.59%20446.91%20565.41%20453.19%20564.84%20459.19%20563.91%20464.91%20562.59%20470.34%20561.09%20475.5%20559.41%20480.38%20557.53%20484.96%20555.47%20489.29%20553.22%20493.45%20550.78%20497.48%20548.16%20501.38%20545.34%20505.12%20542.37%20508.71%20539.23%20512.13%20535.92%20515.39%20532.45%20518.48%20528.68%20521.46%20524.6%20524.32%20520.22%20527.06%20515.53%20529.69%20510.89%20531.98%20506.3%20533.95%20501.75%20535.59%20497.25%20536.91%20492.46%20537.98%20487.41%20538.83%20482.06%20539.44%20476.44%20539.81%20470.77%20539.86%20465.05%20539.58%20459.29%20538.97%20453.46%20538.03%20447.38%20536.58%20441%20534.61%20434.34%20532.12%20427.41%20529.12%20420.89%20525.94%20414.8%20522.56%20409.12%20519%20403.88%20515.25%20398.65%20511.15%20393.44%20506.69%20388.27%20501.89%20383.11%20496.73%20377.88%20491%20372.59%20484.66%20367.21%20477.75%20361.79%20470.25%20356.58%20462.61%20351.61%20454.83%20346.88%20446.91%20342.38%20438.84%20338%20430.52%20333.73%20421.94%20329.58%20413.11%20325.55%20404.02%20322.79%20400.59%20321.29%20402.84%20321.05%20410.77%20322.08%20424.36%20322.85%20437.98%20323.37%20451.62%20323.62%20465.29V478.96L323.48%20490.73%20323.2%20500.58%20322.79%20508.5%20322.21%20514.5%20321.42%20521.16%20320.39%20528.47%20319.12%20536.44%20317.62%20545.06%20315.89%20553.59%20313.92%20562.03%20311.71%20570.38%20309.29%20578.62%20306.61%20586.69%20303.7%20594.56%20300.56%20602.25%20297.19%20609.75%20293.75%20616.71%20290.23%20623.13%20286.64%20629.02%20282.98%20634.36%20279.87%20638.69%20277.29%20642.02%20275.25%20644.34%20273.75%20645.66%20272.06%20646.83%20270.19%20647.86%20268.12%20648.75%20262.5%20650.62%20261.66%20650.48%20259.96%20650.2ZM257.44%20649.78%22%20fill=%22%23148576%22%20fill-rule=%22evenodd%22/%3E%3Cpath%20d=%22M280.27%20291.89%20264.61%20276.23%20250.1%20261.31%20236.75%20247.1%20224.53%20233.62%20213.47%20220.88%20204.19%20209.91%20196.69%20200.72%20190.97%20193.31%20187.03%20187.69%20183.52%20182.48%20180.42%20177.7%20177.75%20173.34%20175.5%20169.41%20173.06%20164.58%20170.44%20158.86%20167.62%20152.25%20164.62%20144.75%20162.09%20137.67%20160.03%20131.02%20158.44%20124.78%20157.31%20118.97%20156.47%20113.25%20155.91%20107.62%20155.62%20102.09V96.66L155.81%2091.59%20156.19%2086.91%20156.75%2082.59%20157.5%2078.66%20158.34%2074.91%20159.28%2071.34%20160.31%2067.97%20161.44%2064.78%20162.84%2061.41%20164.53%2057.84%20166.5%2054.09%20168.75%2050.16%20171.25%2046.34%20174.02%2042.63%20177.05%2039.05%20180.33%2035.58%20183.54%2032.46%20186.68%2029.69%20189.75%2027.29%20192.75%2025.21%20195.84%2023.3%20199.03%2021.52%20202.31%2019.88%20205.69%2018.38%20209.06%2017.06%20212.44%2015.94%20215.81%2015%20219.19%2014.25%20222.52%2013.64%20225.8%2013.17%20229.03%2012.84%20232.22%2012.66%20235.41%2012.61%20238.59%2012.7%20241.78%2012.94%20244.97%2013.31%20248.25%2013.88%20251.62%2014.62%20255.09%2015.56%20258.66%2016.69%20262.45%2018.23%20266.48%2020.2%20270.75%2022.59%20275.25%2025.41%20279.31%2028.19%20282.91%2030.96%20286.08%2033.7%20288.8%2036.42%20291.52%2039.33%20294.23%2042.42%20296.95%2045.7%20299.67%2049.17%20302.25%2051%20304.69%2051.19%20306.98%2049.73%20309.14%2046.64%20311.62%2043.45%20314.44%2040.17%20317.58%2036.8%20321.05%2033.33%20324.77%2030.07%20328.75%2027.02%20333%2024.19%20337.5%2021.56%20341.62%2019.36%20345.38%2017.58%20348.75%2016.21%20351.75%2015.29%20354.7%2014.48%20357.61%2013.83%20360.46%2013.31%20363.29%2012.94%20366.56%2012.75H370.31L374.54%2012.94%20379.21%2013.31%20383.95%2014.02%20388.73%2015.05%20393.56%2016.41%20398.44%2018.09%20403.17%2020.11%20407.77%2022.45%20412.21%2025.12%20416.54%2028.12%20420.73%2031.57%20424.81%2035.46%20428.77%2039.8%20432.61%2044.58%20436.06%2049.48%20439.1%2054.5%20441.75%2059.62%20444%2064.88%20445.88%2069.8%20447.38%2074.39%20448.5%2078.66%20449.25%2082.59%20449.77%2087.38%20450.05%2093%20450.09%2099.47%20449.91%20106.78%20449.25%20114.19%20448.12%20121.69%20446.54%20129.28%20444.46%20136.97%20442.17%20144.28%20439.64%20151.22%20436.88%20157.78%20433.88%20163.97%20430.21%20170.67%20425.91%20177.89%20420.94%20185.62%20415.31%20193.88%20409.55%20201.89%20403.64%20209.67%20397.59%20217.22%20391.41%20224.53%20381.87%20235%20368.98%20248.65%20352.73%20265.45%20333.14%20285.42%20318.44%20300.4%20308.65%20310.38%20303.75%20315.38ZM136.88%20526.59%20130.12%20526.41%20123.84%20525.89%20118.03%20525.05%20112.69%20523.88%20107.81%20522.38%20103.03%20520.55%2098.34%20518.39%2093.75%20515.91%2089.25%20513.09%2084.91%20509.93%2080.75%20506.41%2076.73%20502.55%2072.89%20498.33%2069.59%20494.46%2066.82%20490.94%2064.59%20487.79%2062.91%20484.96%2061.36%20482.16%2059.95%20479.34%2058.69%20476.54%2057.56%20473.71%2056.53%20470.81%2055.59%20467.81%2054.75%20464.71%2054%20461.54%2053.39%20458.16%2052.92%20454.59%2052.59%20450.84%2052.41%20446.91%2052.36%20443.3%2052.45%20440.02%2052.69%20437.06%2053.06%20434.44%2053.62%20431.58%2054.38%20428.48%2055.31%20425.16%2056.44%20421.59%2057.94%20417.84%2059.81%20413.91%2062.06%20409.79%2064.69%20405.46%2065.37%20401.65%2064.1%20398.32%2060.89%20395.48%2055.73%20393.14%2050.72%20390.38%2045.84%20387.19%2041.11%20383.58%2036.52%20379.55%2032.46%20375.59%2028.94%20371.69%2025.96%20367.88%2023.54%20364.12%2021.29%20360.05%2019.21%20355.64%2017.34%20350.91%2015.66%20345.84%2014.3%20340.45%2013.27%20334.73%2012.56%20328.69%2012.19%20322.31%2012.05%20316.69%2012.14%20311.81%2012.46%20307.69%2013.04%20304.31%2013.73%20300.94%2014.58%20297.56%2015.56%20294.19%2016.69%20290.81%2018.14%20287.25%2019.92%20283.5%2022.04%20279.56%2024.46%20275.44%2027.12%20271.48%2029.98%20267.68%2033.05%20264.05%2036.33%20260.58%2039.59%20257.41%2042.82%20254.56%2046.03%20252%2049.22%20249.75%2052.64%20247.59%2056.3%20245.53%2060.19%20243.56%2064.31%20241.69%2068.25%20240.05%2072%20238.64%2075.56%20237.47%2078.94%20236.53%2082.73%20235.69%2086.95%20234.94%2091.59%20234.28%2096.66%20233.72%20102%20233.39%20107.62%20233.3%20113.53%20233.44%20119.72%20233.81%20125.77%20234.38%20131.67%20235.12%20137.44%20236.06%20143.06%20237.19%20149.16%20238.69%20155.72%20240.56%20162.75%20242.81%20170.25%20245.44%20177.89%20248.39%20185.67%20251.67%20193.59%20255.28%20201.66%20259.21%20208.97%20262.92%20215.53%20266.39%20221.34%20269.62%20226.41%20272.62%20232.45%20276.46%20239.48%20281.16%20247.5%20286.69%20256.5%20293.06%20265%20299.32%20273.02%20305.46%20280.55%20311.48%20287.58%20317.39%20292.1%20324.25%20294.12%20332.09%20293.62%20340.88%20290.62%20350.62%20287.11%20360.98%20283.08%20371.95%20278.54%20383.54%20273.46%20395.71%20268.96%20406.21%20265.04%20415.04%20261.66%20422.16%20258.84%20427.59%20255.38%20433.79%20251.25%20440.71%20246.47%20448.41%20241.03%20456.84%20235.88%20464.44%20231%20471.19%20226.41%20477.09%20222.09%20482.16%20217.52%20487.1%20212.69%20491.93%20207.61%20496.64%20202.27%20501.23%20196.75%20505.48%20191.09%20509.37%20185.25%20512.91%20179.25%20516.09%20173.3%20518.86%20167.39%20521.2%20161.53%20523.12%20155.72%20524.62%20151.36%20525.75%20147%20526.88%20141.94%20526.73ZM473.44%20526.59%20467.06%20526.41%20460.79%20525.8%20454.59%20524.77%20448.5%20523.31%20442.5%20521.44%20437.06%20519.52%20432.19%20517.55%20427.88%20515.53%20424.12%20513.47%20420.61%20511.41%20417.33%20509.34%20414.29%20507.29%20411.46%20505.21%20408.02%20502.38%20403.94%20498.77%20399.23%20494.39%20393.89%20489.23%20388.38%20483.31%20382.71%20476.6%20376.88%20469.12%20370.88%20460.88%20365.02%20452.16%20359.3%20442.96%20353.71%20433.31%20348.29%20423.19%20343.12%20413.06%20338.25%20402.94%20333.66%20392.81%20329.34%20382.69%20325.21%20372.52%20321.29%20362.3%20317.54%20352.04%20313.96%20341.71%20312.87%20332.65%20314.23%20324.82%20318.05%20318.23%20324.33%20312.89%20330.68%20307.66%20337.1%20302.56%20343.59%20297.56%20350.16%20292.69%20356.95%20287.86%20363.98%20283.08%20371.25%20278.34%20378.75%20273.66%20385.92%20269.34%20392.77%20265.41%20399.29%20261.84%20405.46%20258.66%20411.98%20255.52%20418.83%20252.42%20426%20249.38%20433.5%20246.38%20440.34%20243.8%20446.54%20241.64%20452.06%20239.91%20456.94%20238.59%20461.77%20237.42%20466.55%20236.39%20471.29%20235.5%20475.96%20234.75%20481.21%20234.19%20487.04%20233.81%20493.41%20233.62H500.34L506.44%20233.77%20511.69%20234.05%20516.09%20234.47%20519.66%20235.03%20523.36%20235.78%20527.2%20236.72%20531.19%20237.84%20535.31%20239.16%20539.62%20240.84%20544.12%20242.91%20548.81%20245.34%20553.69%20248.16%20558.21%20251.09%20562.38%20254.13%20566.2%20257.3%20569.67%20260.58%20572.84%20263.84%20575.69%20267.07%20578.25%20270.29%20580.5%20273.46%20582.61%20276.84%20584.58%20280.41%20586.41%20284.16%20588.09%20288.09%20589.59%20292.21%20590.91%20296.54%20592.03%20301.04%20592.97%20305.71%20593.67%20310.17%20594.14%20314.39%20594.38%20318.38V322.12L594.05%20326.44%20593.39%20331.31%20592.41%20336.75%20591.09%20342.75%20589.69%20348.09%20588.19%20352.79%20586.59%20356.81%20584.91%20360.19%20583.27%20363.23%20581.67%20365.95%20580.12%20368.34%20578.62%20370.41%20576.35%20372.96%20573.31%20376%20569.48%20379.55%20564.89%20383.58%20560.2%20387.14%20555.42%20390.23%20550.55%20392.86%20545.58%20395.02%20542.6%20398.13%20541.62%20402.21%20542.62%20407.25%20545.62%20413.25%20548.11%20418.92%20550.08%20424.27%20551.53%20429.29%20552.47%20433.96%20553.08%20438.8%20553.36%20443.77%20553.31%20448.88%20552.94%20454.12%20552.09%20459.56%20550.78%20465.19%20549%20471%20546.75%20477%20544.55%20482.25%20542.39%20486.75%20540.28%20490.5%20538.22%20493.5%20535.71%20496.66%20532.75%20500%20529.36%20503.48%20525.52%20507.14%20521.75%20510.4%20518.04%20513.25%20514.41%20515.72%20510.84%20517.78%20506.77%20519.7%20502.17%20521.48%20497.06%20523.12%20491.44%20524.62%20487.21%20525.75%20484.41%20526.5%20483%20526.88%20481.41%20526.83%20478.21%20526.73ZM258.19%20637.31%20256.31%20636.94%20254.25%20636.28%20252%20635.34%20249.56%20634.12%20246.94%20632.62%20244.57%20631.1%20242.46%20629.56%20240.61%20627.98%20239.02%20626.39%20237.73%20624.68%20236.75%20622.85%20236.06%20620.91%20235.69%20618.84%20236.48%20615.94%20238.45%20612.19%20241.59%20607.59%20245.91%20602.16%20249.84%20597%20253.41%20592.12%20256.59%20587.53%20259.41%20583.22%20262.27%20578.58%20265.17%20573.61%20268.12%20568.31%20271.12%20562.69%20274.12%20556.69%20277.12%20550.31%20280.12%20543.56%20283.12%20536.44%20286.04%20528.84%20288.84%20520.78%20291.56%20512.25%20294.19%20503.25%20296.48%20494.71%20298.45%20486.66%20300.09%20479.06%20301.41%20471.94%20302.58%20464.81%20303.61%20457.69%20304.5%20450.56%20305.25%20443.44%20305.88%20436.15%20306.4%20428.69%20306.8%20421.08%20307.08%20413.3%20307.55%20410.25%20308.2%20411.94%20309.05%20418.36%20310.08%20429.52%20310.85%20440.93%20311.37%20452.6%20311.62%20464.54V476.71L311.25%20488.95%20310.5%20501.23%20309.38%20513.56%20307.88%20525.94%20306.23%20537.23%20304.45%20547.45%20302.54%20556.59%20300.46%20564.66%20298.21%20572.48%20295.79%20580.08%20293.16%20587.44%20290.34%20594.56%20287.25%20601.55%20283.88%20608.39%20280.21%20615.09%20276.29%20621.66%20273.02%20626.88%20270.44%20630.77%20268.55%20633.33%20267.33%20634.55%20266.13%20635.56%20264.96%20636.35%20263.81%20636.94%20262.69%20637.31%20261.84%20637.59%20261.29%20637.78%20261%20637.88%20260.54%20637.78%20259.59%20637.59ZM258.19%20637.31%22%20fill=%22%23179987%22%20fill-rule=%22evenodd%22/%3E%3Cpath%20d=%22M303.66%20298.88H303.09L302.41%20298.62%20301.62%20298.1%20300.7%20297.33%20299.67%20296.3%20294.73%20290.5%20285.87%20279.96%20273.09%20264.66%20256.41%20244.59%20242.39%20227.25%20231.05%20212.62%20222.38%20200.72%20216.38%20191.53%20211.17%20183.05%20206.77%20175.27%20203.16%20168.19%20200.34%20161.81%20197.91%20155.48%20195.84%20149.2%20194.16%20142.97%20192.84%20136.78%20191.91%20131.11%20191.34%20125.95%20191.16%20121.31%20191.34%20117.19%20191.67%20113.39%20192.14%20109.92%20192.75%20106.78%20193.5%20103.97%20194.48%20101.06%20195.7%2098.06%20197.16%2094.97%20198.84%2091.78%20200.75%2088.71%20202.85%2085.75%20205.17%2082.92%20207.7%2080.2%20210.63%2077.6%20213.96%2075.12%20217.69%2072.75%20221.81%2070.5%20225.61%2068.67%20229.08%2067.27%20232.22%2066.28%20235.03%2065.72%20237.75%2065.3%20240.38%2065.02%20242.91%2064.88H245.34L248.25%2065.16%20251.62%2065.72%20255.47%2066.56%20259.79%2067.69%20263.71%2068.91%20267.29%2070.22%20270.46%2071.62%20273.29%2073.12%20276.09%2074.81%20278.91%2076.69%20281.71%2078.75%20284.54%2081%20287.54%2083.77%20290.71%2087.05%20294.09%2090.84%20297.66%2095.16%20301.41%2097.17%20305.34%2096.89%20309.46%2094.31%20313.79%2089.44%20317.86%2085.17%20321.7%2081.52%20325.31%2078.47%20328.69%2076.03%20332.34%2073.78%20336.29%2071.72%20340.5%2069.84%20345%2068.16%20349.73%2066.89%20354.7%2066.05%20359.91%2065.62H365.34L369.98%2065.81%20373.83%2066.19%20376.88%2066.75%20379.12%2067.5%20381.66%2068.58%20384.46%2069.98%20387.56%2071.72%20390.94%2073.78%20394.1%2076.06%20397.06%2078.54%20399.8%2081.23%20402.33%2084.14%20404.65%2087.25%20406.75%2090.59%20408.66%2094.12%20410.34%2097.88%20411.75%20101.3%20412.88%20104.39%20413.71%20107.16%20414.29%20109.59%20414.66%20112.88%20414.84%20117V121.97L414.66%20127.78%20414.14%20133.5%20413.3%20139.12%20412.12%20144.66%20410.62%20150.09%20408.89%20155.48%20406.92%20160.83%20404.71%20166.12%20402.29%20171.38%20398.67%20177.98%20393.89%20185.95%20387.94%20195.28%20380.81%20205.97%20371.37%20218.79%20359.6%20233.75%20345.52%20250.83%20329.11%20270.05%20316.81%20284.46%20308.6%20294.07%20304.5%20298.88ZM155.53%20483.38H151.22L146.95%20483.05%20142.73%20482.39%20138.56%20481.41%20134.44%20480.09%20130.97%20478.88%20128.16%20477.75%20126%20476.71%20124.5%20475.79%20122.91%20474.52%20121.22%20472.92%20119.44%20471%20117.56%20468.75%20116.41%20467.37%20116%20466.85%20116.3%20467.2%20117.33%20468.42%20118.03%20469.36%20118.41%20470.02%20118.45%20470.39%20118.17%20470.48%20117.47%20469.96%20116.34%20468.84%20114.8%20467.11%20112.83%20464.77%20111.44%20462.96%20110.65%20461.69%20110.44%20460.96%20110.81%20460.79%20110.91%20460.55%20110.72%20460.27%20110.25%20459.94%20109.5%20459.56%20108.52%20458.2%20107.3%20455.86%20105.84%20452.54%20104.16%20448.21%20102.84%20443.86%20101.91%20439.45%20101.34%20435%20101.16%20430.5%20101.39%20425.77%20102.05%20420.8%20103.12%20415.59%20104.62%20410.16%20106.5%20404.77%20108.75%20399.42%20111.38%20394.12%20114.38%20388.88%20115.81%20384.68%20115.66%20381.54%20113.95%20379.45%20110.67%20378.42%20106.81%20376.81%20102.35%20374.6%2097.31%20371.81%2091.69%20368.44%2086.65%20364.94%2082.19%20361.34%2078.33%20357.61%2075.05%20353.77%2072.16%20349.85%2069.68%20345.87%2067.59%20341.81%2065.91%20337.69%2064.59%20333.7%2063.66%20329.86%2063.09%20326.16%2062.91%20322.59%2062.86%20319.41%2062.95%20316.59%2063.19%20314.16%2063.56%20312.09%2064.22%20309.66%2065.16%20306.84%2066.38%20303.66%2067.88%20300.09%2069.28%20297.05%2070.59%20294.52%2071.81%20292.5%2072.94%20291%2074.75%20289.06%2077.23%20286.66%2080.39%20283.83%2084.23%20280.55%2088.48%20277.57%2093.12%20274.9%2098.16%20272.54%20103.59%20270.46%20108.7%20268.79%20113.48%20267.46%20117.94%20266.54%20122.06%20265.96%20126.33%20265.59%20130.73%20265.41H135.28L139.97%20265.59%20145.31%20266.11%20151.31%20266.95%20157.97%20268.12%20165.28%20269.62%20171.89%20271.12%20177.8%20272.62%20183%20274.12%20187.5%20275.62%20193.55%20278.02%20201.14%20281.3%20210.28%20285.46%20220.97%20290.54%20231.96%20296.23%20243.25%20302.56%20254.86%20309.52%20266.77%20317.11%20274.71%20325.1%20278.69%20333.5%20278.71%20342.29%20274.79%20351.46%20270.75%20360.52%20266.62%20369.42%20262.41%20378.19%20258.09%20386.81%20253.31%20395.67%20248.06%20404.77%20242.34%20414.09%20236.16%20423.66%20230%20432.44%20223.85%20440.46%20217.73%20447.7%20211.64%20454.17%20206.5%20459.44%20202.34%20463.52%20199.12%20466.41%20196.88%20468.09%20194.11%20469.92%20190.83%20471.89%20187.03%20474%20182.72%20476.25%20178.59%20478.17%20174.66%20479.77%20170.91%20481.04%20167.34%20481.96%20164.67%20482.67%20162%20483.38ZM450.09%20483.56%20446.16%20483.19%20442.21%20482.58%20438.29%20481.73%20434.34%20480.66%20430.41%20479.34%20426.29%20477.61%20421.96%20475.45%20417.46%20472.88%20412.79%20469.88%20408.89%20467.16%20405.8%20464.71%20403.5%20462.56%20402%20460.69%20400.73%20459.29%20399.7%20458.34%20398.91%20457.88H398.34L397.57%20457.52%20396.59%20456.82%20395.39%20455.77%20393.98%20454.36%20391.94%20452.09%20389.27%20448.94%20385.96%20444.94%20382.04%20440.06%20379.08%20436.21%20377.11%20433.41%20376.12%20431.62V430.88L375.94%20430.21%20375.56%20429.66%20375%20429.19%20374.25%20428.81%20372.89%20427.27%20370.92%20424.55%20368.34%20420.66%20365.16%20415.59%20361.55%20409.45%20357.52%20402.23%20353.06%20393.94%20348.19%20384.56%20343.36%20374.91%20338.58%20364.96%20333.84%20354.75%20329.16%20344.25%20328.48%20334.52%20331.81%20325.57%20339.14%20317.39%20350.48%20309.98%20360.59%20303.59%20369.44%20298.19%20377.06%20293.81%20383.44%20290.44%20389.54%20287.34%20395.34%20284.54%20400.88%20282%20406.12%20279.75%20411.23%20277.69%20416.2%20275.81%20421.04%20274.12%20425.71%20272.62%20430.64%20271.21%20435.8%20269.91%20441.19%20268.69%20446.81%20267.56%20452.54%20266.67%20458.34%20266.02%20464.25%20265.59%20470.25%20265.41%20475.5%20265.36%20480%20265.45%20483.75%20265.69%20486.75%20266.06%20489.94%20266.62%20493.31%20267.38%20496.88%20268.31%20500.62%20269.44%20504%20270.56%20507%20271.69%20509.62%20272.81%20511.88%20273.94%20514.57%20275.65%20517.71%20277.94%20521.3%20280.83%20525.33%20284.3%20528.68%20287.37%20531.35%20290.04%20533.34%20292.31%20534.66%20294.19%20535.92%20296.25%20537.14%20298.5%20538.31%20300.94%20539.44%20303.56%20540.38%20305.95%20541.12%20308.11%20541.69%20310.04%20542.06%20311.71%20542.34%20313.83%20542.53%20316.36%20542.62%20319.31V322.69L542.25%20326.34%20541.5%20330.29%20540.38%20334.5%20538.88%20339%20537.38%20342.94%20535.88%20346.31%20534.38%20349.12%20532.88%20351.38%20531.12%20353.69%20529.1%20356.09%20526.83%20358.55%20524.3%20361.08%20521.23%20363.68%20517.62%20366.35%20513.47%20369.09%20508.79%20371.91%20504.35%20374.32%20500.18%20376.34%20496.27%20377.95%20492.61%20379.17%20490.62%20381.4%20490.29%20384.63%20491.62%20388.88%20494.62%20394.12%20497.2%20399.14%20499.36%20403.92%20501.09%20408.46%20502.41%20412.79%20503.39%20417.38%20504.05%20422.25%20504.38%20427.41V432.84L503.95%20438.05%20503.11%20443.02%20501.84%20447.75%20500.16%20452.25%20498.33%20456.33%20496.36%20459.98%20494.25%20463.21%20492%20466.04%20489.73%20468.59%20487.43%20470.88%20485.11%20472.92%20482.77%20474.7%20480.35%20476.32%20477.87%20477.77%20475.31%20479.06%20472.69%20480.19%20469.92%20481.17%20467.02%20482.02%20463.96%20482.71%20460.79%20483.29%20458.39%20483.7%20456%20484.12%20455.02%20484.04%20453.05%20483.84ZM450.09%20483.56%22%20fill=%22%2319a491%22%20fill-rule=%22evenodd%22/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+.callout[data-callout="контекст"], .callout[data-callout="ctx"], .callout[data-callout="context"] {
+  --callout-color: 154, 110, 74;
+  --callout-icon: lucide-coffee;
+  --callout-groups: palette;
+  --callout-group-palette: контекст ctx context;
+}
+.callout[data-callout="контекст"] .callout-icon svg,
+.callout[data-callout="контекст"] .menu-item-icon svg, .callout[data-callout="ctx"] .callout-icon svg,
+ .callout[data-callout="ctx"] .menu-item-icon svg, .callout[data-callout="context"] .callout-icon svg ,
+ .callout[data-callout="context"] .menu-item-icon svg { display: none !important; }
+.callout[data-callout="контекст"] .callout-icon,
+.callout[data-callout="контекст"] .menu-item-icon, .callout[data-callout="ctx"] .callout-icon,
+ .callout[data-callout="ctx"] .menu-item-icon, .callout[data-callout="context"] .callout-icon ,
+ .callout[data-callout="context"] .menu-item-icon {
+  --icon-size: 2.65em;
+  --icon-shift: -0.18em;
+  --icon-pos: 50% 78%;
+  width: 1.125em !important;
+  height: 1.125em !important;
+  flex-basis: 1.125em;
+  transform: translateY(var(--icon-shift));
+  background: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20xmlns:xlink=%22http://www.w3.org/1999/xlink%22%20xmlns:inkscape=%22http://www.inkscape.org/namespaces/inkscape%22%20version=%221.1%22%20width=%22604.5%22%20height=%22753.75%22%20viewBox=%220%200%20604.5%20753.75%22%3E%3Cdefs%3E%3CclipPath%20id=%22clip_1%22%3E%3Cpath%20d=%22M0%202H604.5V753.75H0Z%22/%3E%3C/clipPath%3E%3C/defs%3E%3Cg%3E%3Cg%20clip-path=%22url%28%23clip_1%29%22%3E%3Cpath%20d=%22M280.12%20310.21%20274.88%20306.29%20270.07%20302.46%20265.71%20298.75%20261.8%20295.17%20258.33%20291.7%20255.07%20288.25%20252.02%20284.84%20249.19%20281.44%20246.56%20278.06%20244.08%20274.69%20241.73%20271.31%20239.53%20267.94%20237.47%20264.56%20235.64%20261.38%20234.05%20258.38%20232.69%20255.56%20231.56%20252.94%20230.39%20249.52%20229.17%20245.3%20227.91%20240.28%20226.59%20234.47%20225.66%20228.89%20225.09%20223.55%20224.91%20218.44%20225.09%20213.56%20225.7%20208.41%20226.73%20202.97%20228.19%20197.25%20230.06%20191.25%20231.89%20185.95%20233.67%20181.36%20235.41%20177.47%20237.09%20174.28%20239.48%20170.39%20242.58%20165.8%20246.38%20160.5%20250.88%20154.5%20254.95%20148.88%20258.61%20143.62%20261.84%20138.75%20264.66%20134.25%20267.29%20129.75%20269.71%20125.25%20271.96%20120.75%20274.04%20116.25%20275.86%20111.84%20277.45%20107.53%20278.81%20103.31%20279.94%2099.19%20280.88%2094.69%20281.62%2089.81%20282.19%2084.56%20282.56%2078.94%20282.66%2073.27%20282.46%2067.55%20282%2061.78%20281.25%2055.97%20280.21%2050.11%20278.91%2044.2%20277.31%2038.25%20275.44%2032.25%20273.35%2026.27%20271.06%2020.32%20268.55%2014.39%20265.83%208.48%20264.54%204.66%20264.68%202.93%20266.25%203.29%20269.25%205.71%20272.27%208.32%20275.32%2011.09%20278.39%2014.02%20281.48%2017.11%20285.02%2021.02%20289%2025.75%20293.44%2031.31%20298.31%2037.69%20302.67%2043.97%20306.52%2050.16%20309.84%2056.25%20312.66%2062.25%20315%2067.59%20316.88%2072.28%20318.29%2076.31%20319.21%2079.69%20320.02%2082.92%20320.67%2086.02%20321.19%2088.97%20321.56%2091.78%20321.84%2095.16%20322.04%2099.09%20322.12%20103.59V108.66L321.98%20113.34%20321.7%20117.66%20321.29%20121.59%20320.71%20125.16%20320.02%20128.72%20319.17%20132.28%20318.19%20135.84%20317.06%20139.41%20315.56%20143.44%20313.69%20147.94%20311.44%20152.91%20308.81%20158.34%20305.39%20164.53%20301.17%20171.47%20296.16%20179.16%20290.34%20187.59%20285.56%20194.86%20281.81%20200.95%20279.09%20205.88%20277.41%20209.62%20275.86%20213.47%20274.45%20217.41%20273.19%20221.44%20272.06%20225.56%20271.12%20229.41%20270.38%20232.97%20269.81%20236.25%20269.44%20239.25%20269.16%20242.44%20268.96%20245.81%20268.88%20249.38V253.12L269.02%20256.88%20269.3%20260.62%20269.71%20264.38%20270.29%20268.12%20271.08%20272.16%20272.11%20276.46%20273.38%20281.06%20274.88%20285.94%20276.68%20291.02%20278.79%20296.32%20281.2%20301.83%20285.96%20311.84%20287.32%20314.69%20288%20316.12%20284.06%20313.17ZM188.2%20310.08%20188.67%20304.55%20188.88%20299.69%20188.84%20295.52%20188.53%20292.04%20187.97%20289.21%20187.22%20286.45%20186.28%20283.73%20185.16%20281.06%20183.84%20278.44%20181.45%20274.92%20177.98%20270.52%20173.44%20265.21%20167.81%20259.04%20162.98%20253.41%20158.95%20248.34%20155.72%20243.84%20153.28%20239.91%20151.08%20235.78%20149.11%20231.47%20147.38%20226.97%20145.88%20222.28%20144.7%20217.31%20143.86%20212.06%20143.34%20206.53%20143.16%20200.72%20143.39%20194.86%20144.05%20188.95%20145.12%20183%20146.62%20177%20148.5%20171.05%20150.75%20165.14%20153.38%20159.28%20156.38%20153.47%20159.33%20148.17%20162.23%20143.39%20165.09%20139.12%20167.91%20135.38%20170.88%20131.69%20174.02%20128.09%20177.33%20124.55%20180.8%20121.08%20184.19%20117.87%20187.52%20114.91%20190.78%20112.22%20193.97%20109.78%20196.38%20108.02%20198.02%20106.94%20198.89%20106.55%20198.98%20106.83%20198.5%20108.02%20197.41%20110.13%20195.75%20113.16%20193.5%20117.09%20191.25%20121.55%20189%20126.52%20186.75%20132%20184.5%20138%20182.58%20143.67%20180.98%20149.02%20179.72%20154.03%20178.78%20158.72%20178.03%20163.5%20177.47%20168.38%20177.09%20173.34%20176.91%20178.41V183.23L177.09%20187.83%20177.47%20192.19%20178.03%20196.31%20178.88%20200.67%20180%20205.27%20181.41%20210.09%20183.09%20215.16%20184.88%20219.89%20186.75%20224.3%20188.72%20228.38%20190.78%20232.12%20193.27%20236.3%20196.17%20240.89%20199.5%20245.91%20203.25%20251.34%20206.25%20256.12%20208.5%20260.25%20210%20263.71%20210.75%20266.54%20211.31%20269.3%20211.69%20272.02%20211.88%20274.69V277.31L211.78%20279.75%20211.59%20282%20211.31%20284.06%20210.94%20285.94%20210.33%20288.05%20209.48%20290.39%20208.41%20292.96%20207.09%20295.79%20205.78%20298.36%20204.47%20300.7%20203.16%20302.81%20201.84%20304.69%20200.09%20306.77%20197.88%20309.07%20195.23%20311.58%20192.14%20314.3%20189.82%20316.34%20188.27%20317.69%20187.5%20318.38%20187.62%20317%20187.85%20314.23ZM297%20372.38H178.5L89.56%20372.31%2030.16%20372.16%20.328%20371.95%20.047%20371.67-.164%20371.13-.309%20370.34-.375%20369.29V367.96L-.285%20365.58-.09%20362.11%20.188%20357.56%20.563%20351.94%201%20347.65%201.52%20344.69%202.11%20343.08%202.77%20342.8%207.1%20342.31%2015.12%20341.6%2026.81%20340.69%2042.19%20339.56%2057.98%20338.54%2074.2%20337.59%2090.84%20336.75%20107.91%20336%20124.92%20335.34%20141.89%20334.79%20158.81%20334.31%20175.69%20333.94%20193.73%20333.66%20212.95%20333.46%20233.34%20333.38H254.91L277.17%20333.56%20300.14%20333.94%20323.81%20334.5%20348.19%20335.25%20372%20336.19%20395.25%20337.31%20417.94%20338.62%20440.06%20340.12%20456.77%20341.32%20468.07%20342.21%20473.95%20342.8%20474.42%20343.08%20474.75%20345.09%20474.94%20348.84%20474.98%20354.33%20474.89%20361.55%20474.82%20366.96%20474.77%20370.57%20474.75%20372.38ZM241.41%20753.38H228.84L217.78%20753.28%20208.22%20753.09%20200.16%20752.81%20193.59%20752.44%20186.75%20751.92%20179.62%20751.27%20172.22%20750.47%20164.53%20749.53%20157.69%20748.59%20151.69%20747.66%20146.53%20746.72%20142.22%20745.78%20138.42%20744.7%20135.14%20743.48%20132.38%20742.12%20130.12%20740.62%20127.34%20738.4%20124%20735.44%20120.14%20731.77%20115.73%20727.36%20110.88%20722.13%20105.59%20716.09%2099.84%20709.22%2093.66%20701.53%2087.8%20693.89%2082.27%20686.3%2077.06%20678.75%2072.19%20671.25%2067.22%20663.14%2062.16%20654.42%2057%20645.09%2051.75%20635.16%2046.88%20625.45%2042.38%20615.98%2038.25%20606.75%2034.5%20597.75%2030.89%20588.42%2027.42%20578.77%2024.09%20568.78%2020.91%20558.47%2018.05%20548.62%2015.52%20539.25%2013.31%20530.34%2011.44%20521.91%209.7%20513.42%208.11%20504.89%206.66%20496.31%205.34%20487.69%204.12%20478.21%203%20467.91%201.97%20456.75%201.03%20444.75%20.328%20433.31-.141%20422.44-.375%20412.12V402.38L-.309%20395-.164%20389.98%20.047%20387.33%20.328%20387.05%2030.25%20386.84%2089.84%20386.69%20179.06%20386.62H297.94L387.75%20386.48%20448.5%20386.2%20480.19%20385.79%20482.81%20385.21%20486.52%20384.8%20491.3%20384.52%20497.16%20384.38H504.09L510.33%20384.56%20515.86%20384.94%20520.69%20385.5%20524.81%20386.25%20528.8%20387.14%20532.64%20388.17%20536.34%20389.34%20539.91%20390.66%20543.33%20392.06%20546.61%20393.56%20549.75%20395.16%20552.75%20396.84%20555.84%20398.77%20559.03%20400.92%20562.31%20403.31%20565.69%20405.94%20568.81%20408.54%20571.66%20411.12%20574.27%20413.67%20576.61%20416.2%20578.93%20418.9%20581.23%20421.75%20583.5%20424.79%20585.75%20427.96%20588%20431.58%20590.25%20435.61%20592.5%20440.06%20594.75%20444.94%20596.81%20450.29%20598.69%20456.09%20600.38%20462.38%20601.88%20469.12%20603%20475.83%20603.75%20482.48%20604.12%20489.09V495.66L603.75%20502.41%20603%20509.34%20601.88%20516.47%20600.38%20523.78%20598.83%20530.34%20597.23%20536.16%20595.59%20541.22%20593.91%20545.53%20591.7%20550.41%20588.98%20555.84%20585.75%20561.84%20582%20568.41%20578.3%20574.45%20574.64%20579.98%20571.03%20585%20567.47%20589.5%20563.69%20593.98%20559.71%20598.43%20555.52%20602.86%20551.11%20607.27%20546.82%20611.37%20542.65%20615.16%20538.59%20618.66%20534.66%20621.84%20530.34%20625.12%20525.66%20628.5%20520.59%20631.97%20515.16%20635.53%20509.71%20638.91%20504.29%20642.09%20498.84%20645.09%20493.41%20647.91%20488.06%20650.53%20482.81%20652.97%20477.66%20655.22%20472.59%20657.28%20467.11%20659.34%20461.2%20661.41%20454.88%20663.47%20448.12%20665.53%20441.66%20667.36%20435.46%20668.95%20429.56%20670.31%20423.94%20671.44%20418.79%20672.38%20414.09%20673.12%20409.88%20673.69%20406.12%20674.06%20401.65%20676.57%20396.44%20681.21%20390.52%20687.98%20383.86%20696.89%20378.16%20704.37%20373.43%20710.41%20369.66%20715.03%20366.84%20718.22%20363.5%20721.81%20359.6%20725.79%20355.17%20730.17%20350.2%20734.95%20345.63%20738.82%20341.46%20741.77%20337.69%20743.81%20334.31%20744.94%20330.61%20745.97%20326.58%20746.91%20322.21%20747.75%20317.54%20748.5%20310.88%20749.3%20302.25%20750.14%20291.66%20751.03%20279.09%20751.97%20269.67%20752.67%20260.25%20753.38ZM443.3%20617.67%20451.08%20614.95%20457.94%20612.4%20463.9%20610%20468.94%20607.78%20473.06%20605.72%20477.29%20603.47%20481.59%20601.03%20486%20598.41%20490.5%20595.59%20495.4%20592.19%20500.69%20588.21%20506.39%20583.64%20512.48%20578.48%20517.85%20573.68%20522.5%20569.23%20526.41%20565.12%20529.59%20561.38%20532.69%20557.44%20535.69%20553.31%20538.59%20549%20541.41%20544.5%20543.94%20540.14%20546.19%20535.92%20548.16%20531.84%20549.84%20527.91%20551.3%20524.3%20552.52%20521.02%20553.5%20518.06%20554.25%20515.44%20554.91%20512.86%20555.47%20510.33%20555.94%20507.84%20556.31%20505.41%20556.59%20502.31%20556.78%20498.56%20556.88%20494.16V489.09L556.69%20484.5%20556.31%20480.38%20555.75%20476.71%20555%20473.54%20554.11%20470.44%20553.08%20467.44%20551.91%20464.54%20550.59%20461.71%20548.88%20458.75%20546.77%20455.6%20544.27%20452.3%20541.36%20448.83%20538.57%20445.81%20535.9%20443.23%20533.34%20441.09%20530.91%20439.41%20528.14%20437.77%20525.05%20436.17%20521.62%20434.62%20517.88%20433.12%20514.55%20431.91%20511.64%20430.96%20509.16%20430.31%20507.09%20429.94%20504.38%20429.66%20501%20429.46%20496.96%20429.38H492.29L488.09%20429.59%20484.38%20430%20481.17%20430.64%20478.45%20431.48%20476.23%20434.56%20474.5%20439.85%20473.25%20447.38%20472.5%20457.12%20471.42%20467.48%20470.02%20478.45%20468.29%20490.04%20466.21%20502.21%20464.11%20513.56%20461.95%20524.06%20459.75%20533.72%20457.5%20542.53%20455.39%20550.45%20453.42%20557.48%20451.59%20563.62%20449.91%20568.88%20447.46%20575.62%20444.29%20583.88%20440.34%20593.62%20435.66%20604.88%20432.33%20613.31%20430.36%20618.94%20429.75%20621.75H431.62L433.57%20621.07%20437.46%20619.71ZM443.3%20617.67%22%20fill=%22%239a6e4a%22%20fill-rule=%22evenodd%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+}
+.callout[data-callout="загадка"], .callout[data-callout="riddle"] {
+  --callout-color: 164, 94, 207;
+  --callout-icon: lucide-rabbit;
+  --callout-groups: palette;
+  --callout-group-palette: загадка riddle;
+}
+.callout[data-callout="загадка"] .callout-icon svg,
+.callout[data-callout="загадка"] .menu-item-icon svg,
+.callout[data-callout="riddle"] .callout-icon svg ,
+.callout[data-callout="riddle"] .menu-item-icon svg { display: none !important; }
+.callout[data-callout="загадка"] .callout-icon,
+.callout[data-callout="загадка"] .menu-item-icon,
+.callout[data-callout="riddle"] .callout-icon ,
+.callout[data-callout="riddle"] .menu-item-icon {
+  --icon-size: 1.82em;
+  --icon-shift: -0.04em;
+  --icon-pos: 50% 36%;
+  width: 1.125em !important;
+  height: 1.125em !important;
+  flex-basis: 1.125em;
+  transform: translateY(var(--icon-shift));
+  background: url("data:image/png;base64,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") center / contain no-repeat;
+}
+.callout[data-callout="билет"], .callout[data-callout="bilet"] {
+  --callout-color: 35, 122, 140;
+  --callout-icon: lucide-pilcrow;
+  --callout-groups: palette;
+  --callout-group-palette: билет bilet;
+}
+.callout[data-callout="билет"] .callout-icon,
+.callout[data-callout="билет"] .menu-item-icon,
+.callout[data-callout="bilet"] .callout-icon,
+.callout[data-callout="bilet"] .menu-item-icon {
+  --icon-size: 2.05em;
+  --icon-shift: 0.18em;
+}
+.callout[data-callout="билет"] .callout-icon::before,
+.callout[data-callout="билет"] .menu-item-icon::before, .callout[data-callout="bilet"] .callout-icon::before ,
+ .callout[data-callout="bilet"] .menu-item-icon::before {
+  content: "§";
+}
+
+/* optical-image-slot: contain игнорирует --icon-size; картинки в слоте 1em как Lucide */
+.callout:is(
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"]
+) .callout-icon,
+.callout:is(
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"]
+) .menu-item-icon {
+  background-size: var(--icon-size) var(--icon-size) !important;
+  background-position: var(--icon-pos, center) !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Pages calibration -------------------------------------------------------
+   Exact source coefficients from palette-pack:
+   symbol font = 0.95; ordinary glyphs = 1.25; snow = 1.6/-0.12em;
+   sun = 1.2; clover = 0.95/-0.12em; cup = 1.2/-0.025em;
+   bunny hat = 1.25/-0.12em. Positive translateY is TeX's negative raisebox.
+   Image width stays auto so non-square artwork cannot be squashed. */
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-size: 1.1875em;
+  --icon-height: var(--icon-size);
+  --icon-shift: 0;
+  --icon-pos: center;
+  width: 1.25em !important;
+  height: 1.25em !important;
+  flex: 0 0 1.25em;
+  align-self: center;
+}
+
+.callout:is(
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-size: 1.52em;
+  --icon-shift: -0.04em;
+}
+
+.callout:is(
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-size: 1.14em;
+  --icon-shift: -0.04em;
+}
+
+.callout:is(
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-size: 1em;
+}
+
+.callout:is(
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-height: 1.2em;
+  --icon-shift: 0;
+}
+
+.callout:is(
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-height: 0.95em;
+  --icon-shift: 0;
+}
+
+.callout:is(
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-height: 1.2em;
+  --icon-shift: -0.09em;
+}
+
+.callout:is(
+  [data-callout="загадка"], [data-callout="riddle"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-height: 1.26em;
+  --icon-shift: -0.11em;
+}
+
+/* Optical corrections measured against the rendered title text.
+   1.15 / 1.1875 = 96.84%: about one screen pixel smaller at current zoom. */
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-size: 1.15em;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="замечание"], [data-callout="заметка"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-shift: -0.04em;
+}
+
+.callout:is(
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="замечание"], [data-callout="заметка"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-shift: -0.07em;
+}
+
+.callout:is(
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-shift: -0.08em;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-shift: -0.06em;
+}
+
+.callout:is(
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-shift: -0.04em;
+}
+
+.callout:is(
+  [data-callout="пример"], [data-callout="ex"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-shift: -0.05em;
+}
+
+.callout:is(
+  [data-callout="билет"], [data-callout="bilet"]
+) :is(.callout-icon, .menu-item-icon) {
+  --icon-shift: -0.04em;
+}
+
+.callout:is(
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"]
+) :is(.callout-icon, .menu-item-icon) {
+  background-size: auto var(--icon-height) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Exact Pages fills -------------------------------------------------------
+   Values are copied from palette-pack/preamble.tex. In Pages each tcolorbox
+   has one colback, therefore title and content use the same solid fill. */
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"]
+) { --pages-bg: #e9f4ee; }
+
+.callout:is(
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"]
+) { --pages-bg: #fbe9ee; }
+
+.callout:is(
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"]
+) { --pages-bg: #f4eefb; }
+
+.callout:is(
+  [data-callout="замечание"], [data-callout="заметка"]
+) { --pages-bg: #faeaf4; }
+
+.callout:is(
+  [data-callout="пример"], [data-callout="ex"]
+) { --pages-bg: #eaf2fd; }
+
+.callout:is(
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"]
+) { --pages-bg: #e8f5fb; }
+
+.callout:is(
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"]
+) { --pages-bg: #fbf3e4; }
+
+.callout:is(
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"]
+) { --pages-bg: #eef1f4; }
+
+.callout:is(
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"]
+) { --pages-bg: #fbefe8; }
+
+.callout:is(
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"]
+) { --pages-bg: #e1f2ed; }
+
+.callout:is(
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"]
+) { --pages-bg: #f1e9e1; }
+
+.callout:is(
+  [data-callout="загадка"], [data-callout="riddle"]
+) { --pages-bg: #f4ecf9; }
+
+.callout:is(
+  [data-callout="билет"], [data-callout="bilet"]
+) { --pages-bg: #e6f3f5; }
+
+/* Obsidian dark adaptation ------------------------------------------------
+   RGB opacity cannot balance accents with very different luminance. Each
+   dark pair below therefore keeps its Pages hue but uses a shared HSL
+   lightness: 20% body and 25.75% title. Saturation is optically constrained
+   to 24–48%, so every family reads equally clearly without grey or neon.
+   Accents are lifted only ~10% (proof ~18%) to remain readable, not pastel.
+   This generic mix is only a fallback for any future alias. */
+.theme-dark .callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) {
+  --pages-bg: color-mix(
+    in srgb,
+    rgb(var(--callout-color)) 22%,
+    var(--background-primary)
+  );
+  --pages-title-strength: 8%;
+}
+
+.theme-dark .callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"]
+) {
+  --callout-color: 67, 151, 104;
+  --pages-bg: #224431;
+  --pages-title-bg: #2b583f;
+}
+
+.theme-dark .callout:is(
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"]
+) {
+  --callout-color: 205, 81, 112;
+  --pages-bg: #462029;
+  --pages-title-bg: #5a2935;
+}
+
+.theme-dark .callout:is(
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"]
+) {
+  --callout-color: 148, 101, 213;
+  --pages-bg: #301f47;
+  --pages-title-bg: #3e285b;
+}
+
+.theme-dark .callout:is(
+  [data-callout="замечание"], [data-callout="заметка"]
+) {
+  --callout-color: 200, 89, 164;
+  --pages-bg: #442239;
+  --pages-title-bg: #582b49;
+}
+
+.theme-dark .callout:is(
+  [data-callout="пример"], [data-callout="ex"]
+) {
+  --callout-color: 67, 138, 235;
+  --pages-bg: #1b2f4b;
+  --pages-title-bg: #223d61;
+}
+
+.theme-dark .callout:is(
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"]
+) {
+  --callout-color: 26, 154, 218;
+  --pages-bg: #1b3b4b;
+  --pages-title-bg: #224c61;
+}
+
+.theme-dark .callout:is(
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"]
+) {
+  --callout-color: 224, 169, 56;
+  --pages-bg: #4b3b1b;
+  --pages-title-bg: #614c22;
+}
+
+.theme-dark .callout:is(
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"]
+) {
+  --callout-color: 121, 136, 149;
+  --pages-bg: #27343f;
+  --pages-title-bg: #324351;
+}
+
+.theme-dark .callout:is(
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"]
+) {
+  --callout-color: 224, 135, 99;
+  --pages-bg: #4a291c;
+  --pages-title-bg: #603524;
+}
+
+.theme-dark .callout:is(
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"]
+) {
+  --callout-color: 42, 159, 143;
+  --pages-bg: #1b4b45;
+  --pages-title-bg: #226158;
+}
+
+.theme-dark .callout:is(
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"]
+) {
+  --callout-color: 169, 125, 92;
+  --pages-bg: #3f3227;
+  --pages-title-bg: #514032;
+}
+
+.theme-dark .callout:is(
+  [data-callout="загадка"], [data-callout="riddle"]
+) {
+  --callout-color: 173, 110, 212;
+  --pages-bg: #372046;
+  --pages-title-bg: #472a5a;
+}
+
+.theme-dark .callout:is(
+  [data-callout="билет"], [data-callout="bilet"]
+) {
+  --callout-color: 57, 135, 152;
+  --pages-bg: #1e4148;
+  --pages-title-bg: #27535c;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) > :is(.callout-title, .callout-content),
+.custom-callout-context-menu-appearance.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) {
+  background-color: var(--pages-bg) !important;
+}
+
+/* Obsidian hierarchy: exact Pages body + subtly stronger title. */
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) > .callout-title {
+  background-color: var(
+    --pages-title-bg,
+    color-mix(
+      in srgb,
+      rgb(var(--callout-color)) var(--pages-title-strength, 4%),
+      var(--pages-bg)
+    )
+  ) !important;
+}
+
+/* Pages title spacing: \enspace = 0.5em.
+   Icon slots keep their uniform Obsidian width. */
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) > .callout-title > .callout-icon {
+  margin-inline-end: 0 !important;
+}
+
+.callout:is(
+  [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
+  [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
+  [data-callout="лемма"], [data-callout="lem"], [data-callout="lemma"],
+  [data-callout="замечание"], [data-callout="заметка"],
+  [data-callout="пример"], [data-callout="ex"],
+  [data-callout="свойства"], [data-callout="prop"], [data-callout="properties"],
+  [data-callout="соглашение"], [data-callout="conv"], [data-callout="convention"],
+  [data-callout="доказательство"], [data-callout="proof"], [data-callout="prf"],
+  [data-callout="следствие"], [data-callout="cor"], [data-callout="corollary"],
+  [data-callout="интуиция"], [data-callout="intu"], [data-callout="intuition"],
+  [data-callout="контекст"], [data-callout="ctx"], [data-callout="context"],
+  [data-callout="загадка"], [data-callout="riddle"],
+  [data-callout="билет"], [data-callout="bilet"]
+) > .callout-title > .callout-title-inner {
+  margin-inline-start: 0.5em !important;
+}

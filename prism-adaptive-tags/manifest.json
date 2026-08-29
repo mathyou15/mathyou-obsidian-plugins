@@ -1,0 +1,9 @@
+{
+  "id": "prism-adaptive-tags",
+  "name": "Prism Adaptive Tags",
+  "version": "1.0.0",
+  "minAppVersion": "1.5.0",
+  "description": "Адаптивные цветные теги Prism с коротким синтаксисом и палитрой в контекстном меню.",
+  "author": "Лейка",
+  "isDesktopOnly": false
+}
