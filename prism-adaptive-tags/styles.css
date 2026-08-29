@@ -274,7 +274,7 @@
 
 .apt-inline-picker__shapes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 5px;
 }
 
@@ -302,6 +302,14 @@
     transparent
   );
   color: var(--interactive-accent);
+}
+
+.apt-inline-picker__reset {
+  color: var(--text-faint);
+}
+
+.apt-inline-picker__reset:hover {
+  color: var(--text-error);
 }
 
 .apt-inline-picker__shape svg {

@@ -294,6 +294,7 @@ function findTagAtCursor(view) {
     return {
       start,
       end,
+      label: match.groups?.label || "",
       color,
       colorStart: start + match[0].indexOf(colorToken),
       colorEnd: start + match[0].indexOf(colorToken) + colorToken.length,
@@ -338,6 +339,15 @@ class InlineTagPicker {
       shapeRow.append(button);
     }
 
+    const resetButton = doc.createElement("button");
+    resetButton.type = "button";
+    resetButton.className = "apt-inline-picker__shape apt-inline-picker__reset";
+    resetButton.dataset.action = "reset";
+    resetButton.title = "Сбросить оформление";
+    resetButton.setAttribute("aria-label", "Сбросить оформление тега");
+    setIcon(resetButton, "ban");
+    shapeRow.append(resetButton);
+
     const divider = doc.createElement("div");
     divider.className = "apt-inline-picker__divider";
 
@@ -376,6 +386,7 @@ class InlineTagPicker {
       const button = event.target?.closest?.("button");
       if (!button) return;
 
+      if (button.dataset.action === "reset") this.resetTag();
       if (button.dataset.color) this.applyColor(button.dataset.color);
       if (button.dataset.shape) this.applyShape(button.dataset.shape);
     });
@@ -457,6 +468,18 @@ class InlineTagPicker {
       this.dom.style.left = `${left}px`;
       this.dom.style.top = `${top}px`;
     });
+  }
+
+  resetTag() {
+    const tag = findTagAtCursor(this.view);
+    if (!tag) return;
+
+    this.view.dispatch({
+      changes: { from: tag.start, to: tag.end, insert: tag.label },
+      selection: { anchor: tag.start + tag.label.length },
+    });
+    this.hide();
+    this.view.focus();
   }
 
   applyColor(colorId) {
