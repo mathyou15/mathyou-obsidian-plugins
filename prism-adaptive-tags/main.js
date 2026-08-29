@@ -444,9 +444,9 @@ class InlineTagPicker {
       const viewportHeight =
         this.view.dom.ownerDocument.defaultView?.innerHeight || window.innerHeight;
 
-      let top = chipTop + chip.height + 6;
-      if (top + bounds.height > viewportHeight - gap) {
-        top = Math.max(gap, chipTop - bounds.height - 6);
+      let top = chipTop - bounds.height - 6;
+      if (top < gap) {
+        top = chipTop + chip.height + 6;
       }
 
       const left = Math.min(
