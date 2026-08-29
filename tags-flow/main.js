@@ -28,6 +28,13 @@ function positionOnRenderedTag(line, column) {
   return line.from + desired;
 }
 
+function isSingleVisualRow(view, line) {
+  const start = view.coordsAtPos(line.from);
+  const end = view.coordsAtPos(line.to);
+  if (!start || !end) return true;
+  return Math.abs(start.top - end.top) < 2;
+}
+
 function moveVertically(view, direction, extend) {
   const { doc, selection } = view.state;
   const forward = direction > 0;
@@ -44,9 +51,13 @@ function moveVertically(view, direction, extend) {
     if (targetNumber >= 1 && targetNumber <= doc.lines) {
       const nativeLine = doc.lineAt(native.head);
       const adjacentLine = doc.line(targetNumber);
+      const adjacentHasTag = new RegExp(MARKDOWN_TAG_PATTERN, "i").test(
+        adjacentLine.text
+      );
+      const singleVisualRow = isSingleVisualRow(view, currentLine);
       const enteringAdjacentTag =
-        nativeLine.number !== currentLine.number &&
-        new RegExp(MARKDOWN_TAG_PATTERN, "i").test(adjacentLine.text);
+        adjacentHasTag &&
+        (nativeLine.number !== currentLine.number || singleVisualRow);
 
       if (enteringAdjacentTag) {
         const column = range.head - currentLine.from;
