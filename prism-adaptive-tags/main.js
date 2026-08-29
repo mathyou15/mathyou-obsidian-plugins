@@ -1,4 +1,4 @@
-const { Plugin, MarkdownView, SuggestModal } = require("obsidian");
+const { Plugin, MarkdownView, SuggestModal, setIcon } = require("obsidian");
 const { Decoration, ViewPlugin } = require("@codemirror/view");
 const { RangeSetBuilder } = require("@codemirror/state");
 
@@ -39,19 +39,19 @@ const SHAPES = [
     id: "pill",
     symbol: "",
     name: "Капсула",
-    icon: '<svg viewBox="0 0 28 18" aria-hidden="true"><rect x="1.5" y="2.5" width="25" height="13" rx="6.5"/></svg>',
+    icon: "tag",
   },
   {
     id: "soft",
     symbol: "~",
     name: "Плашка",
-    icon: '<svg viewBox="0 0 28 18" aria-hidden="true"><rect x="1.5" y="2.5" width="25" height="13" rx="3"/></svg>',
+    icon: "ticket",
   },
   {
     id: "arrow",
     symbol: "<",
     name: "Стрелка",
-    icon: '<svg viewBox="0 0 28 18" aria-hidden="true"><path d="M2 2.5h17L26.5 9 19 15.5H2Z"/></svg>',
+    icon: "send",
   },
 ];
 
@@ -245,7 +245,7 @@ class InlineTagPicker {
       button.dataset.shape = shape.id;
       button.title = shape.name;
       button.setAttribute("aria-label", shape.name);
-      button.innerHTML = shape.icon;
+      setIcon(button, shape.icon);
       shapeRow.append(button);
     }
 
