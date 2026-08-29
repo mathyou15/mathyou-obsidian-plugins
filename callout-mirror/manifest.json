@@ -1,0 +1,9 @@
+{
+  "id": "callout-mirror",
+  "name": "Callout Mirror",
+  "version": "0.5.1",
+  "minAppVersion": "1.7.2",
+  "description": "Shows a live rendered preview below the callout currently being edited.",
+  "author": "mathyou15",
+  "isDesktopOnly": false
+}
