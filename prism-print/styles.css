@@ -20,8 +20,13 @@
 
 .print.prism-print.theme-dark,
 .print.prism-print.theme-dark .markdown-preview-view {
-  background-color: hsl(var(--background-primary-hsl, 0 0% 18%)) !important;
+  background-color: hsl(var(--background-secondary-alt-hsl, 0 0% 8%)) !important;
   color: hsl(var(--text-normal-hsl, 0 0% 91%)) !important;
+  color-scheme: dark;
+}
+
+.print.prism-print.theme-dark {
+  page: prism-dark;
 }
 
 .print.prism-print.theme-light,
@@ -30,10 +35,33 @@
   color: hsl(var(--text-normal-hsl, 0 0% 16%)) !important;
 }
 
+.theme-dark #better-export-pdf .print-preview-container,
+.theme-dark #better-export-pdf .print-preview-item,
+.theme-dark #better-export-pdf .preview-wrapper,
+.theme-dark #better-export-pdf .pdf-canvas-page {
+  background-color: hsl(var(--background-secondary-alt-hsl, 0 0% 8%)) !important;
+}
+
 @media print {
-  .print.prism-print,
-  .print.prism-print .markdown-preview-view {
+  html:has(body > .print.prism-print.theme-dark),
+  body:has(> .print.prism-print.theme-dark) {
+    background-color: hsl(var(--background-secondary-alt-hsl, 0 0% 8%)) !important;
+    color-scheme: dark;
+  }
+
+  .print.prism-print.theme-dark,
+  .print.prism-print.theme-dark .markdown-preview-view {
+    background-color: hsl(var(--background-secondary-alt-hsl, 0 0% 8%)) !important;
+    color: var(--text-normal) !important;
+  }
+
+  .print.prism-print.theme-light,
+  .print.prism-print.theme-light .markdown-preview-view {
     background-color: var(--background-primary) !important;
     color: var(--text-normal) !important;
   }
+}
+
+@page prism-dark {
+  background-color: hsl(var(--background-secondary-alt-hsl, 0 0% 8%));
 }
