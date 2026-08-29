@@ -65,11 +65,11 @@ const cursorGuard = ViewPlugin.fromClass(
           event.shiftKey
         );
       };
-      view.contentDOM.addEventListener("keydown", this.onKeyDown, true);
+      view.dom.addEventListener("keydown", this.onKeyDown, true);
     }
 
     destroy() {
-      this.view.contentDOM.removeEventListener("keydown", this.onKeyDown, true);
+      this.view.dom.removeEventListener("keydown", this.onKeyDown, true);
     }
   }
 );
