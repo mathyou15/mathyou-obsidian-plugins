@@ -1,55 +1,48 @@
 const { Plugin } = require("obsidian");
 const { keymap } = require("@codemirror/view");
-const { Prec } = require("@codemirror/state");
+const { EditorSelection, Prec } = require("@codemirror/state");
 
-function moveByLine(view, dir, keepAnchor) {
-  const sel = view.state.selection.main;
-  const fromLine = view.state.doc.lineAt(sel.head);
-  const col = sel.head - fromLine.from;
+function moveByDocumentLine(view, direction, extend) {
+  const { doc, selection } = view.state;
+  let moved = false;
 
-  const coords = view.coordsAtPos(sel.head);
-  let next = null;
+  const ranges = selection.ranges.map((range) => {
+    const currentLine = doc.lineAt(range.head);
+    const targetNumber = currentLine.number + direction;
+    if (targetNumber < 1 || targetNumber > doc.lines) return range;
 
-  if (coords) {
-    const height = Math.max(coords.bottom - coords.top, 8);
-    next = view.posAtCoords({
-      x: coords.left,
-      y: dir > 0 ? coords.bottom + height / 2 : coords.top - height / 2,
-    });
-  }
+    const targetLine = doc.line(targetNumber);
+    const column = range.head - currentLine.from;
+    const head = Math.min(targetLine.from + column, targetLine.to);
+    moved = true;
 
-  if (next != null) {
-    const jumped = view.state.doc.lineAt(next).number - fromLine.number;
-    const skipped = dir > 0 ? jumped > 1 : jumped < -1;
-    if (!skipped) {
-      view.dispatch({
-        selection: keepAnchor
-          ? { anchor: sel.anchor, head: next }
-          : { anchor: next },
-        scrollIntoView: true,
-      });
-      return true;
-    }
-  }
+    return extend
+      ? EditorSelection.range(range.anchor, head)
+      : EditorSelection.cursor(head);
+  });
 
-  const targetNo = fromLine.number + dir;
-  if (targetNo < 1 || targetNo > view.state.doc.lines) return false;
+  if (!moved) return false;
 
-  const target = view.state.doc.line(targetNo);
-  const pos = Math.min(target.from + col, target.to);
   view.dispatch({
-    selection: keepAnchor
-      ? { anchor: sel.anchor, head: pos }
-      : { anchor: pos },
+    selection: EditorSelection.create(ranges, selection.mainIndex),
     scrollIntoView: true,
+    userEvent: extend ? "select" : "select.pointer",
   });
   return true;
 }
 
 const caretKeymap = Prec.high(
   keymap.of([
-    { key: "ArrowUp", run: (view) => moveByLine(view, -1, false), shift: (view) => moveByLine(view, -1, true) },
-    { key: "ArrowDown", run: (view) => moveByLine(view, 1, false), shift: (view) => moveByLine(view, 1, true) },
+    {
+      key: "ArrowUp",
+      run: (view) => moveByDocumentLine(view, -1, false),
+      shift: (view) => moveByDocumentLine(view, -1, true),
+    },
+    {
+      key: "ArrowDown",
+      run: (view) => moveByDocumentLine(view, 1, false),
+      shift: (view) => moveByDocumentLine(view, 1, true),
+    },
   ])
 );
 

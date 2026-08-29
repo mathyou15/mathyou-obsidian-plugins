@@ -1,9 +1,9 @@
 {
   "id": "tags-flow",
   "name": "Tags Flow",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "minAppVersion": "1.5.0",
-  "description": "Стрелки остаются на строке с тегом, а не перескакивают её.",
+  "description": "Исправляет переход стрелками через строки плагина Tags for Markdown.",
   "author": "Лейка",
   "main": "main.js",
   "isDesktopOnly": false
