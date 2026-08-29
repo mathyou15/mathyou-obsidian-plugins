@@ -39,19 +39,25 @@ const SHAPES = [
     id: "pill",
     symbol: "",
     name: "Капсула",
-    icon: "tag",
+    icon: "circle",
+    menuTitle: "Цветной тег",
+    glyph: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>',
   },
   {
     id: "soft",
     symbol: "~",
     name: "Плашка",
-    icon: "ticket",
+    icon: "square",
+    menuTitle: "Тег-плашка",
+    glyph: '<svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="10" rx="2.5"/></svg>',
   },
   {
     id: "arrow",
     symbol: "<",
     name: "Стрелка",
-    icon: "send",
+    icon: "triangle",
+    menuTitle: "Тег-стрелка",
+    glyph: '<svg viewBox="0 0 24 24"><path d="M9 7l8 5-8 5z"/></svg>',
   },
 ];
 
@@ -262,6 +268,7 @@ class InlineTagPicker {
   constructor(view) {
     this.view = view;
     this.activeTag = null;
+    this.menuOpen = false;
     this.frame = 0;
     this.build();
     this.refresh();
@@ -269,6 +276,13 @@ class InlineTagPicker {
 
   build() {
     const doc = this.view.dom.ownerDocument;
+
+    this.chip = doc.createElement("button");
+    this.chip.type = "button";
+    this.chip.className = "apt-color-chip";
+    this.chip.title = "Цвет тега";
+    this.chip.setAttribute("aria-label", "Открыть палитру тега");
+
     this.dom = doc.createElement("div");
     this.dom.className = "apt-inline-picker";
     this.dom.setAttribute("role", "toolbar");
@@ -284,7 +298,7 @@ class InlineTagPicker {
       button.dataset.shape = shape.id;
       button.title = shape.name;
       button.setAttribute("aria-label", shape.name);
-      setIcon(button, shape.icon);
+      button.innerHTML = shape.glyph;
       shapeRow.append(button);
     }
 
@@ -305,7 +319,15 @@ class InlineTagPicker {
     }
 
     this.dom.append(shapeRow, divider, colorGrid);
-    doc.body.append(this.dom);
+    doc.body.append(this.chip, this.dom);
+
+    this.chip.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      this.menuOpen = !this.menuOpen;
+      this.dom.classList.toggle("is-visible", this.menuOpen);
+      this.schedulePosition();
+    });
 
     this.dom.addEventListener("pointerdown", (event) => {
       event.preventDefault();
@@ -321,8 +343,9 @@ class InlineTagPicker {
 
     this.onOutsidePointerDown = (event) => {
       const target = event.target;
-      if (this.dom.contains(target) || this.view.dom.contains(target)) return;
-      this.hide();
+      if (this.dom.contains(target) || this.chip.contains(target)) return;
+      this.menuOpen = false;
+      this.dom.classList.remove("is-visible");
     };
     doc.addEventListener("pointerdown", this.onOutsidePointerDown, true);
   }
@@ -345,7 +368,9 @@ class InlineTagPicker {
       return;
     }
 
-    this.dom.classList.add("is-visible");
+    this.chip.className = `apt-color-chip apt-${this.activeTag.color.id} is-visible`;
+    this.chip.title = this.activeTag.color.name;
+    this.dom.classList.toggle("is-visible", this.menuOpen);
     this.updateSelection();
     this.schedulePosition();
   }
@@ -367,20 +392,33 @@ class InlineTagPicker {
   schedulePosition() {
     cancelAnimationFrame(this.frame);
     this.frame = requestAnimationFrame(() => {
-      if (!this.activeTag || !this.dom.classList.contains("is-visible")) return;
+      if (!this.activeTag || !this.chip.classList.contains("is-visible")) return;
 
       const coordinates = this.view.coordsAtPos(this.activeTag.start);
       if (!coordinates) return;
 
+      const chip = this.chip.getBoundingClientRect();
+      const gap = 8;
+      const chipLeft = Math.max(gap, coordinates.left - chip.width - 6);
+      const chipTop = coordinates.top + (coordinates.bottom - coordinates.top - chip.height) / 2;
+      this.chip.style.left = `${chipLeft}px`;
+      this.chip.style.top = `${chipTop}px`;
+
+      if (!this.menuOpen) return;
+
       const bounds = this.dom.getBoundingClientRect();
       const viewportWidth =
         this.view.dom.ownerDocument.defaultView?.innerWidth || window.innerWidth;
-      const gap = 8;
-      let top = coordinates.top - bounds.height - gap;
-      if (top < gap) top = coordinates.bottom + gap;
+      const viewportHeight =
+        this.view.dom.ownerDocument.defaultView?.innerHeight || window.innerHeight;
+
+      let top = chipTop + chip.height + 6;
+      if (top + bounds.height > viewportHeight - gap) {
+        top = Math.max(gap, chipTop - bounds.height - 6);
+      }
 
       const left = Math.min(
-        Math.max(gap, coordinates.left),
+        Math.max(gap, chipLeft),
         viewportWidth - bounds.width - gap
       );
 
@@ -415,6 +453,8 @@ class InlineTagPicker {
   }
 
   hide() {
+    this.menuOpen = false;
+    this.chip.classList.remove("is-visible");
     this.dom.classList.remove("is-visible");
   }
 
@@ -425,16 +465,17 @@ class InlineTagPicker {
       this.onOutsidePointerDown,
       true
     );
+    this.chip.remove();
     this.dom.remove();
   }
 }
 
 class AdaptiveTagModal extends SuggestModal {
-  constructor(app, plugin, arrow = false) {
+  constructor(app, plugin, shape = SHAPES[0]) {
     super(app);
     this.plugin = plugin;
-    this.arrow = arrow;
-    this.setPlaceholder(arrow ? "Цвет тега-стрелки…" : "Цвет тега…");
+    this.shape = shape;
+    this.setPlaceholder(`Цвет: ${shape.name.toLowerCase()}…`);
   }
 
   getSuggestions(query) {
@@ -450,13 +491,12 @@ class AdaptiveTagModal extends SuggestModal {
 
   renderSuggestion(color, el) {
     const row = el.createDiv({ cls: "apt-picker-row" });
-    const shape = resolveShape(this.arrow ? "<" : "");
-    row.createSpan({ text: color.name, cls: tagClass(color, shape) });
+    row.createSpan({ text: color.name, cls: tagClass(color, this.shape) });
     row.createEl("small", { text: color.group });
   }
 
   onChooseSuggestion(color) {
-    this.plugin.insertTag(color.id, this.arrow);
+    this.plugin.insertTag(color.id, this.shape);
   }
 }
 
@@ -486,17 +526,13 @@ module.exports = class PrismAdaptiveTagsPlugin extends Plugin {
     this.registerEditorExtension(editorPlugin);
     this.registerMarkdownPostProcessor((el) => renderReadingMode(el));
 
-    this.addCommand({
-      id: "insert-adaptive-tag",
-      name: "Вставить адаптивный тег",
-      editorCallback: () => new AdaptiveTagModal(this.app, this).open(),
-    });
-
-    this.addCommand({
-      id: "insert-adaptive-arrow-tag",
-      name: "Вставить адаптивный тег-стрелку",
-      editorCallback: () => new AdaptiveTagModal(this.app, this, true).open(),
-    });
+    for (const shape of SHAPES) {
+      this.addCommand({
+        id: `insert-adaptive-${shape.id}-tag`,
+        name: `Вставить адаптивный тег: ${shape.name.toLowerCase()}`,
+        editorCallback: () => new AdaptiveTagModal(this.app, this, shape).open(),
+      });
+    }
 
     this.addRibbonIcon("palette", "Prism Adaptive Tags", () => {
       new AdaptiveTagModal(this.app, this).open();
@@ -524,30 +560,26 @@ module.exports = class PrismAdaptiveTagsPlugin extends Plugin {
 
           submenu.addSeparator();
 
-          submenu.addItem((subitem) =>
-            subitem
-              .setTitle("Цветной тег")
-              .setIcon("tag")
-              .onClick(() => new AdaptiveTagModal(this.app, this).open())
-          );
-          submenu.addItem((subitem) =>
-            subitem
-              .setTitle("Тег-стрелка")
-              .setIcon("send")
-              .onClick(() => new AdaptiveTagModal(this.app, this, true).open())
-          );
+          for (const shape of SHAPES) {
+            submenu.addItem((subitem) =>
+              subitem
+                .setTitle(shape.menuTitle)
+                .setIcon(shape.icon)
+                .onClick(() => new AdaptiveTagModal(this.app, this, shape).open())
+            );
+          }
         });
       })
     );
   }
 
-  insertTag(colorId, arrow) {
+  insertTag(colorId, shape = SHAPES[0]) {
     const view = this.app.workspace.getActiveViewOfType(MarkdownView);
     if (!view) return;
 
     const editor = view.editor;
     const selected = editor.getSelection();
-    const prefix = `((${arrow ? "<" : ""}${colorId}|`;
+    const prefix = `((${shape.symbol}${colorId}|`;
 
     if (selected) {
       editor.replaceSelection(`${prefix}${selected}))`);
