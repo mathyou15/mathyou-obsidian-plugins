@@ -6,13 +6,13 @@ const COLORS = [
   { id: "white", name: "Белый", group: "Нейтральные", aliases: ["белый"] },
   { id: "gray", name: "Серый", group: "Нейтральные", aliases: ["grey", "серый"] },
   { id: "graphite", name: "Графитовый", group: "Нейтральные", aliases: ["графитовый", "black", "чёрный", "черный"] },
-
   { id: "brown", name: "Коричневый", group: "Тёплые", aliases: ["коричневый"] },
+  { id: "gold", name: "Золотой", group: "Тёплые", aliases: ["золотой"] },
+
   { id: "red", name: "Красный", group: "Тёплые", aliases: ["красный"] },
   { id: "coral", name: "Коралловый", group: "Тёплые", aliases: ["коралловый"] },
   { id: "orange", name: "Оранжевый", group: "Тёплые", aliases: ["оранжевый"] },
   { id: "peach", name: "Персиковый", group: "Тёплые", aliases: ["персиковый"] },
-  { id: "gold", name: "Золотой", group: "Тёплые", aliases: ["золотой"] },
   { id: "yellow", name: "Жёлтый", group: "Тёплые", aliases: ["желтый", "жёлтый"] },
 
   { id: "lime", name: "Лаймовый", group: "Зелёные и бирюзовые", aliases: ["лаймовый"] },

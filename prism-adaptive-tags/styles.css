@@ -22,6 +22,16 @@
   -webkit-box-decoration-break: clone;
 }
 
+.apt-tag,
+.apt-inline-picker__swatch,
+.apt-active-color-source {
+  --apt-swatch: color-mix(
+    in oklab,
+    var(--apt-bg) 52%,
+    var(--apt-fg)
+  );
+}
+
 .apt-tag + .apt-tag {
   margin-inline-start: 0.28em;
 }
@@ -53,41 +63,49 @@
 .apt-red {
   --apt-bg: hsl(var(--color-red-base-hsl));
   --apt-fg: hsl(var(--color-red-text-hsl));
+  --apt-swatch: hsl(var(--color-red-tint-hsl));
 }
 
 .apt-orange {
   --apt-bg: hsl(var(--color-orange-base-hsl));
   --apt-fg: hsl(var(--color-orange-text-hsl));
+  --apt-swatch: hsl(var(--color-orange-tint-hsl));
 }
 
 .apt-yellow {
   --apt-bg: hsl(var(--color-yellow-base-hsl));
   --apt-fg: hsl(var(--color-yellow-text-hsl));
+  --apt-swatch: hsl(var(--color-yellow-tint-hsl));
 }
 
 .apt-green {
   --apt-bg: hsl(var(--color-green-base-hsl));
   --apt-fg: hsl(var(--color-green-text-hsl));
+  --apt-swatch: hsl(var(--color-green-tint-hsl));
 }
 
 .apt-cyan {
   --apt-bg: hsl(var(--color-cyan-base-hsl));
   --apt-fg: hsl(var(--color-cyan-text-hsl));
+  --apt-swatch: hsl(var(--color-cyan-tint-hsl));
 }
 
 .apt-blue {
   --apt-bg: hsl(var(--color-blue-base-hsl));
   --apt-fg: hsl(var(--color-blue-text-hsl));
+  --apt-swatch: hsl(var(--color-blue-tint-hsl));
 }
 
 .apt-purple {
   --apt-bg: hsl(var(--color-purple-base-hsl));
   --apt-fg: hsl(var(--color-purple-text-hsl));
+  --apt-swatch: hsl(var(--color-purple-tint-hsl));
 }
 
 .apt-pink {
   --apt-bg: hsl(var(--color-pink-base-hsl));
   --apt-fg: hsl(var(--color-pink-text-hsl));
+  --apt-swatch: hsl(var(--color-pink-tint-hsl));
 }
 
 /* Intermediate hues derived from the same Prism palette. */
@@ -144,16 +162,9 @@
 }
 
 .apt-mint {
-  --apt-bg: color-mix(
-    in srgb,
-    hsl(var(--color-green-base-hsl)) 66%,
-    hsl(var(--color-cyan-base-hsl))
-  );
-  --apt-fg: color-mix(
-    in srgb,
-    hsl(var(--color-green-text-hsl)) 66%,
-    hsl(var(--color-cyan-text-hsl))
-  );
+  --apt-bg: hsl(var(--color-mint-base-hsl));
+  --apt-fg: hsl(var(--color-mint-text-hsl));
+  --apt-swatch: hsl(var(--color-mint-tint-hsl));
 }
 
 .apt-teal {
@@ -212,26 +223,31 @@
 .theme-light .apt-white {
   --apt-bg: #f5f5f7;
   --apt-fg: #343740;
+  --apt-swatch: #f0f1f4;
 }
 
 .theme-dark .apt-white {
   --apt-bg: #e6e8ee;
   --apt-fg: #262830;
+  --apt-swatch: #eceef3;
 }
 
 .theme-light .apt-gray {
   --apt-bg: #e4e5e9;
   --apt-fg: #4b4f59;
+  --apt-swatch: #9da1aa;
 }
 
 .theme-dark .apt-gray {
   --apt-bg: #3a3d46;
   --apt-fg: #d5d8e2;
+  --apt-swatch: #777c88;
 }
 
 .apt-graphite {
   --apt-bg: #303238;
   --apt-fg: #eef0f5;
+  --apt-swatch: #454953;
 }
 
 .apt-picker-row {
@@ -251,7 +267,7 @@
   position: fixed;
   z-index: var(--layer-popover, 1000);
   display: flex;
-  width: 260px;
+  width: 220px;
   flex-direction: column;
   gap: 8px;
   padding: 9px;
@@ -329,8 +345,8 @@
 
 .apt-inline-picker__colors {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 9px 8px;
 }
 
 .apt-active-color-source {
@@ -346,10 +362,10 @@
   inset-inline-start: 0.12em;
   width: 1em;
   height: 1em;
-  border: 1px solid color-mix(in srgb, var(--apt-fg) 72%, transparent);
+  border: 1px solid color-mix(in oklab, var(--apt-swatch) 72%, white);
   border-radius: 50%;
   box-sizing: border-box;
-  background: var(--apt-fg) !important;
+  background: var(--apt-swatch) !important;
   box-shadow: none;
   content: "";
   transform: translateY(-50%);
@@ -357,13 +373,13 @@
 
 .apt-inline-picker__swatch {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   margin: auto;
   padding: 0;
-  border: 1px solid var(--apt-fg);
+  border: 1px solid color-mix(in oklab, var(--apt-swatch) 76%, white);
   border-radius: 50%;
-  background: var(--apt-fg) !important;
+  background: var(--apt-swatch) !important;
   box-shadow: none;
   cursor: pointer;
   transition: transform 80ms ease, box-shadow 80ms ease;
