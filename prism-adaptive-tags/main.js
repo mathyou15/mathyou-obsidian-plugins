@@ -38,27 +38,27 @@ const SHAPES = [
   {
     id: "pill",
     symbol: "",
-    name: "Капсула",
+    name: "Овальный тег",
     icon: "apt-shape-pill",
-    menuTitle: "Цветной тег",
+    menuTitle: "Овальный тег",
     glyph:
       '<svg viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="9" rx="4.5"/></svg>',
   },
   {
     id: "soft",
     symbol: "~",
-    name: "Бейдж",
+    name: "Прямоугольный тег",
     icon: "apt-shape-badge",
-    menuTitle: "Тег-бейдж",
+    menuTitle: "Прямоугольный тег",
     glyph:
       '<svg viewBox="0 0 24 24"><rect x="4" y="6.5" width="16" height="11" rx="2.5"/></svg>',
   },
   {
     id: "arrow",
     symbol: "<",
-    name: "Стрелка",
+    name: "Стрелочный тег",
     icon: "apt-shape-arrow",
-    menuTitle: "Тег-стрелка",
+    menuTitle: "Стрелочный тег",
     glyph:
       '<svg viewBox="0 0 24 24"><path d="M4 12l4.5-5H17a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H8.5z"/></svg>',
   },
@@ -561,7 +561,7 @@ class AdaptiveTagModal extends SuggestModal {
     super(app);
     this.plugin = plugin;
     this.shape = shape;
-    this.setPlaceholder(`Цвет: ${shape.name.toLowerCase()}…`);
+    this.setPlaceholder(`Выберите цвет – ${shape.name.toLowerCase()}…`);
   }
 
   getSuggestions(query) {
@@ -617,7 +617,7 @@ module.exports = class PrismAdaptiveTagsPlugin extends Plugin {
     for (const shape of SHAPES) {
       this.addCommand({
         id: `insert-adaptive-${shape.id}-tag`,
-        name: `Вставить адаптивный тег: ${shape.name.toLowerCase()}`,
+        name: `Вставить: ${shape.name.toLowerCase()}`,
         editorCallback: () => new AdaptiveTagModal(this.app, this, shape).open(),
       });
     }
