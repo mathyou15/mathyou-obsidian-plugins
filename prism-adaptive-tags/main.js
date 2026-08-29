@@ -1,5 +1,5 @@
 const { Plugin, MarkdownView, SuggestModal, setIcon } = require("obsidian");
-const { Decoration, ViewPlugin } = require("@codemirror/view");
+const { Decoration, ViewPlugin, WidgetType } = require("@codemirror/view");
 const { RangeSetBuilder } = require("@codemirror/state");
 
 const COLORS = [
@@ -106,22 +106,31 @@ function buildDecorations(view) {
       const color = resolveColor(match.groups?.color || "");
       if (!color) continue;
 
-      const selectionTouchesTag = selections.some(
-        (selection) => selection.from <= end && selection.to >= start
-      );
-      if (
-        selectionTouchesTag ||
-        isInFencedCode(view.state, start) ||
-        isInInlineCode(view.state, start)
-      ) {
+      if (isInFencedCode(view.state, start) || isInInlineCode(view.state, start)) {
         continue;
       }
 
       const label = match.groups?.label || "";
+      const shape = resolveShape(match.groups?.shape);
+      const selectionTouchesTag = selections.some(
+        (selection) => selection.from <= end && selection.to >= start
+      );
+
+      if (selectionTouchesTag) {
+        builder.add(
+          end,
+          end,
+          Decoration.widget({
+            widget: new TagPreviewWidget(color, label, shape),
+            side: 1,
+          })
+        );
+        continue;
+      }
+
       const labelIndex = match[0].indexOf(label);
       const labelStart = start + labelIndex;
       const labelEnd = labelStart + label.length;
-      const shape = resolveShape(match.groups?.shape);
 
       builder.add(start, labelStart, Decoration.mark({ class: "apt-hidden" }));
       builder.add(labelStart, labelEnd, Decoration.mark({ class: tagClass(color, shape) }));
@@ -137,6 +146,36 @@ function createTagElement(doc, color, label, shape) {
   span.className = tagClass(color, shape);
   span.textContent = label;
   return span;
+}
+
+class TagPreviewWidget extends WidgetType {
+  constructor(color, label, shape) {
+    super();
+    this.color = color;
+    this.label = label;
+    this.shape = shape;
+  }
+
+  eq(other) {
+    return (
+      other instanceof TagPreviewWidget &&
+      this.color.id === other.color.id &&
+      this.label === other.label &&
+      this.shape.id === other.shape.id
+    );
+  }
+
+  toDOM() {
+    const wrap = document.createElement("span");
+    wrap.className = "apt-preview";
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.append(createTagElement(document, this.color, this.label, this.shape));
+    return wrap;
+  }
+
+  ignoreEvent() {
+    return true;
+  }
 }
 
 function renderReadingMode(root) {

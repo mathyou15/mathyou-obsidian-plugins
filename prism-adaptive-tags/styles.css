@@ -40,6 +40,15 @@
   display: none;
 }
 
+.apt-preview {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5em;
+  pointer-events: none;
+  user-select: none;
+  vertical-align: middle;
+}
+
 /* Prism's own base/text pairs automatically follow Light, Dark and schemes. */
 .apt-red {
   --apt-bg: hsl(var(--color-red-base-hsl));
