@@ -81,6 +81,38 @@ function tagClass(color, shape = SHAPES[0]) {
   return `apt-tag apt-${color.id}${shapeClass}`;
 }
 
+function appendShapeGlyph(el, shape) {
+  const doc = el.ownerDocument;
+  const svg = doc.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "2");
+  svg.setAttribute("aria-hidden", "true");
+
+  if (shape.id === "pill") {
+    const circle = doc.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", "12");
+    circle.setAttribute("cy", "12");
+    circle.setAttribute("r", "7");
+    svg.append(circle);
+  } else if (shape.id === "soft") {
+    const rect = doc.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", "5");
+    rect.setAttribute("y", "7");
+    rect.setAttribute("width", "14");
+    rect.setAttribute("height", "10");
+    rect.setAttribute("rx", "2.5");
+    svg.append(rect);
+  } else {
+    const path = doc.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M8 6l10 6-10 6z");
+    svg.append(path);
+  }
+
+  el.append(svg);
+}
+
 function isInFencedCode(state, pos) {
   const targetLine = state.doc.lineAt(pos).number;
   let fenced = false;
@@ -298,7 +330,7 @@ class InlineTagPicker {
       button.dataset.shape = shape.id;
       button.title = shape.name;
       button.setAttribute("aria-label", shape.name);
-      button.innerHTML = shape.glyph;
+      appendShapeGlyph(button, shape);
       shapeRow.append(button);
     }
 
