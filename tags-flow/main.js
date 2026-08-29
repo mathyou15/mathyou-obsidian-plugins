@@ -1,5 +1,6 @@
 const { Plugin } = require("obsidian");
-const { Prec, keymap } = require("@codemirror/view");
+const { keymap } = require("@codemirror/view");
+const { Prec } = require("@codemirror/state");
 
 function moveByLine(view, dir, keepAnchor) {
   const sel = view.state.selection.main;
