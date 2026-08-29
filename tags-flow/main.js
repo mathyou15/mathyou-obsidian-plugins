@@ -2,7 +2,31 @@ const { Plugin } = require("obsidian");
 const { ViewPlugin } = require("@codemirror/view");
 const { EditorSelection } = require("@codemirror/state");
 
-const MARKDOWN_TAG = /\(\(<?tag(?:[|/])/i;
+const MARKDOWN_TAG_PATTERN =
+  String.raw`\(\(<?tag(?:[|/])(?<label>[^|/)\n]+)(?:[|/][^|/)\n]*)?(?:[|/][^|/)\n]*)?\)\)`;
+
+function positionOnRenderedTag(line, column) {
+  const desired = Math.min(column, line.length);
+  const regex = new RegExp(MARKDOWN_TAG_PATTERN, "gi");
+  let match;
+
+  while ((match = regex.exec(line.text)) !== null) {
+    const label = match.groups?.label || "";
+    const tagStart = match.index;
+    const tagEnd = tagStart + match[0].length;
+    const labelStart = tagStart + match[0].indexOf(label);
+    const labelEnd = labelStart + label.length;
+
+    if (desired >= tagStart && desired < labelStart) {
+      return line.from + labelStart;
+    }
+    if (desired > labelEnd && desired <= tagEnd) {
+      return line.from + labelEnd;
+    }
+  }
+
+  return line.from + desired;
+}
 
 function moveVertically(view, direction, extend) {
   const { doc, selection } = view.state;
@@ -20,13 +44,13 @@ function moveVertically(view, direction, extend) {
     if (targetNumber >= 1 && targetNumber <= doc.lines) {
       const nativeLine = doc.lineAt(native.head);
       const adjacentLine = doc.line(targetNumber);
-      const skippedAdjacent =
-        Math.abs(nativeLine.number - currentLine.number) > 1 &&
-        MARKDOWN_TAG.test(adjacentLine.text);
+      const enteringAdjacentTag =
+        nativeLine.number !== currentLine.number &&
+        new RegExp(MARKDOWN_TAG_PATTERN, "i").test(adjacentLine.text);
 
-      if (skippedAdjacent) {
+      if (enteringAdjacentTag) {
         const column = range.head - currentLine.from;
-        head = Math.min(adjacentLine.from + column, adjacentLine.to);
+        head = positionOnRenderedTag(adjacentLine, column);
       }
     }
 
