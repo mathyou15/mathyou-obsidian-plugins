@@ -156,10 +156,10 @@ function buildDecorations(view) {
 
       if (selectionTouchesTag) {
         const colorToken = match.groups?.color || "";
-        const colorStart = start + match[0].indexOf(colorToken);
-        const colorEnd = colorStart + colorToken.length;
+        const colorEnd =
+          start + match[0].indexOf(colorToken) + colorToken.length;
         builder.add(
-          colorStart,
+          start + 2,
           colorEnd,
           Decoration.mark({
             class: `apt-active-color-source apt-${color.id}`,
@@ -447,7 +447,7 @@ class InlineTagPicker {
     this.frame = requestAnimationFrame(() => {
       if (!this.activeTag || !this.menuOpen) return;
 
-      const coordinates = this.view.coordsAtPos(this.activeTag.colorStart);
+      const coordinates = this.view.coordsAtPos(this.activeTag.shapeStart);
       if (!coordinates) return;
 
       const gap = 8;

@@ -336,7 +336,7 @@
 .apt-active-color-source {
   position: relative;
   display: inline-block;
-  padding-inline-start: 1.2em;
+  padding-inline-start: 1.38em;
   cursor: pointer;
 }
 
@@ -344,8 +344,8 @@
   position: absolute;
   top: 50%;
   inset-inline-start: 0.12em;
-  width: 0.78em;
-  height: 0.78em;
+  width: 1em;
+  height: 1em;
   border: 1px solid color-mix(in srgb, var(--apt-fg) 72%, transparent);
   border-radius: 50%;
   box-sizing: border-box;
