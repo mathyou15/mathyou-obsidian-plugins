@@ -14,7 +14,7 @@
 
 ## Доступные блоки
 
-![Блоки Math Pages Palette в Prism Dark](../assets/math-pages-palette-dark.png)
+![Блоки Math Pages Palette в Prism Dark](./assets/preview-dark.png)
 
 ## Совместимость
 
