@@ -1,72 +1,59 @@
 const { Plugin } = require("obsidian");
 const { Prec, keymap } = require("@codemirror/view");
-const {
-  cursorLineUp,
-  cursorLineDown,
-  selectLineUp,
-  selectLineDown,
-} = require("@codemirror/commands");
 
-function withSkipGuard(command, dir) {
-  return (view) => {
-    const sel = view.state.selection.main;
-    const fromLine = view.state.doc.lineAt(sel.head);
-    const col = sel.head - fromLine.from;
-    command(view);
+function moveByLine(view, dir, keepAnchor) {
+  const sel = view.state.selection.main;
+  const fromLine = view.state.doc.lineAt(sel.head);
+  const col = sel.head - fromLine.from;
 
-    const toLine = view.state.doc.lineAt(view.state.selection.main.head);
-    const jumped = toLine.number - fromLine.number;
-    const skipped = dir > 0 ? jumped > 1 : jumped < -1;
-    if (!skipped) return true;
+  const coords = view.coordsAtPos(sel.head);
+  let next = null;
 
-    const targetNo = fromLine.number + dir;
-    if (targetNo < 1 || targetNo > view.state.doc.lines) return true;
-
-    const target = view.state.doc.line(targetNo);
-    const pos = Math.min(target.from + col, target.to);
-    view.dispatch({
-      selection: { anchor: pos, head: pos },
-      scrollIntoView: true,
+  if (coords) {
+    const height = Math.max(coords.bottom - coords.top, 8);
+    next = view.posAtCoords({
+      x: coords.left,
+      y: dir > 0 ? coords.bottom + height / 2 : coords.top - height / 2,
     });
-    return true;
-  };
-}
+  }
 
-function withSkipGuardSelect(command, dir) {
-  return (view) => {
-    const sel = view.state.selection.main;
-    const fromLine = view.state.doc.lineAt(sel.head);
-    const col = sel.head - fromLine.from;
-    const anchor = sel.anchor;
-    command(view);
-
-    const toLine = view.state.doc.lineAt(view.state.selection.main.head);
-    const jumped = toLine.number - fromLine.number;
+  if (next != null) {
+    const jumped = view.state.doc.lineAt(next).number - fromLine.number;
     const skipped = dir > 0 ? jumped > 1 : jumped < -1;
-    if (!skipped) return true;
+    if (!skipped) {
+      view.dispatch({
+        selection: keepAnchor
+          ? { anchor: sel.anchor, head: next }
+          : { anchor: next },
+        scrollIntoView: true,
+      });
+      return true;
+    }
+  }
 
-    const targetNo = fromLine.number + dir;
-    if (targetNo < 1 || targetNo > view.state.doc.lines) return true;
+  const targetNo = fromLine.number + dir;
+  if (targetNo < 1 || targetNo > view.state.doc.lines) return false;
 
-    const target = view.state.doc.line(targetNo);
-    const head = Math.min(target.from + col, target.to);
-    view.dispatch({
-      selection: { anchor, head },
-      scrollIntoView: true,
-    });
-    return true;
-  };
+  const target = view.state.doc.line(targetNo);
+  const pos = Math.min(target.from + col, target.to);
+  view.dispatch({
+    selection: keepAnchor
+      ? { anchor: sel.anchor, head: pos }
+      : { anchor: pos },
+    scrollIntoView: true,
+  });
+  return true;
 }
 
 const caretKeymap = Prec.high(
   keymap.of([
-    { key: "ArrowUp", run: withSkipGuard(cursorLineUp, -1), shift: withSkipGuardSelect(selectLineUp, -1) },
-    { key: "ArrowDown", run: withSkipGuard(cursorLineDown, 1), shift: withSkipGuardSelect(selectLineDown, 1) },
+    { key: "ArrowUp", run: (view) => moveByLine(view, -1, false), shift: (view) => moveByLine(view, -1, true) },
+    { key: "ArrowDown", run: (view) => moveByLine(view, 1, false), shift: (view) => moveByLine(view, 1, true) },
   ])
 );
 
 module.exports = class TagsFlowPlugin extends Plugin {
-  async onload() {
+  onload() {
     this.registerEditorExtension(caretKeymap);
   }
 };

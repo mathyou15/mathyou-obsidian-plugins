@@ -1,9 +1,10 @@
 {
   "id": "tags-flow",
   "name": "Tags Flow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "1.5.0",
   "description": "Стрелки остаются на строке с тегом, а не перескакивают её.",
   "author": "Лейка",
+  "main": "main.js",
   "isDesktopOnly": false
 }
