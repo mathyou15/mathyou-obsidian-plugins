@@ -339,15 +339,6 @@ class InlineTagPicker {
       shapeRow.append(button);
     }
 
-    const resetButton = doc.createElement("button");
-    resetButton.type = "button";
-    resetButton.className = "apt-inline-picker__shape apt-inline-picker__reset";
-    resetButton.dataset.action = "reset";
-    resetButton.title = "Сбросить оформление";
-    resetButton.setAttribute("aria-label", "Сбросить оформление тега");
-    setIcon(resetButton, "ban");
-    shapeRow.append(resetButton);
-
     const divider = doc.createElement("div");
     divider.className = "apt-inline-picker__divider";
 
@@ -364,7 +355,25 @@ class InlineTagPicker {
       colorGrid.append(button);
     }
 
-    this.dom.append(shapeRow, divider, colorGrid);
+    const resetDivider = doc.createElement("div");
+    resetDivider.className = "apt-inline-picker__divider";
+
+    const resetButton = doc.createElement("button");
+    resetButton.type = "button";
+    resetButton.className = "apt-inline-picker__clear";
+    resetButton.dataset.action = "reset";
+    resetButton.title = "Убрать тег";
+    resetButton.setAttribute("aria-label", "Убрать оформление тега");
+    setIcon(resetButton, "ban");
+    resetButton.append("Убрать тег");
+
+    this.dom.append(
+      shapeRow,
+      divider,
+      colorGrid,
+      resetDivider,
+      resetButton
+    );
     doc.body.append(this.dom);
 
     this.onTagPointerDown = (event) => {

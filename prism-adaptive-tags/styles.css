@@ -290,7 +290,7 @@
 
 .apt-inline-picker__shapes {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 5px;
 }
 
@@ -320,14 +320,6 @@
   color: var(--interactive-accent);
 }
 
-.apt-inline-picker__reset {
-  color: var(--text-faint);
-}
-
-.apt-inline-picker__reset:hover {
-  color: var(--text-error);
-}
-
 .apt-inline-picker__shape svg {
   width: 18px;
   height: 18px;
@@ -336,6 +328,30 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.apt-inline-picker__clear {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: var(--font-ui-small);
+}
+
+.apt-inline-picker__clear:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-error);
+}
+
+.apt-inline-picker__clear svg {
+  width: 16px;
+  height: 16px;
 }
 
 .apt-inline-picker__divider {
