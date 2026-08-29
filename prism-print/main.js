@@ -38,17 +38,5 @@ module.exports = class PrismPrintPlugin extends Plugin {
     for (const name of document.body.classList) {
       if (name.startsWith("pt-")) root.classList.add(name);
     }
-
-    this.copyTokens(root);
-  }
-
-  copyTokens(root) {
-    const styles = getComputedStyle(document.body);
-    for (let i = 0; i < styles.length; i++) {
-      const name = styles[i];
-      if (name.startsWith("--")) {
-        root.style.setProperty(name, styles.getPropertyValue(name).trim());
-      }
-    }
   }
 };
