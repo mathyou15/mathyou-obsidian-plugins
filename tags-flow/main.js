@@ -1,31 +1,34 @@
 const { Plugin } = require("obsidian");
-const { keymap } = require("@codemirror/view");
-const { EditorSelection, Prec } = require("@codemirror/state");
+const { ViewPlugin } = require("@codemirror/view");
+const { EditorSelection } = require("@codemirror/state");
 
-function keepAdjacentDocumentLine(view, direction, extend) {
+const MARKDOWN_TAG = /\(\(<?tag(?:[|/])/i;
+
+function moveVertically(view, direction, extend) {
   const { doc, selection } = view.state;
   const forward = direction > 0;
-  const nativeRanges = selection.ranges.map((range) =>
-    view.moveVertically(range, forward)
-  );
+  const ranges = selection.ranges.map((range) => {
+    if (!extend && !range.empty) {
+      return EditorSelection.cursor(forward ? range.to : range.from);
+    }
 
-  const skipped = selection.ranges.map((range, index) => {
-    const currentLine = doc.lineAt(range.head);
-    const nativeLine = doc.lineAt(nativeRanges[index].head);
-    return Math.abs(nativeLine.number - currentLine.number) > 1;
-  });
-
-  if (!skipped.some(Boolean)) return false;
-
-  const ranges = selection.ranges.map((range, index) => {
-    if (!skipped[index]) return nativeRanges[index];
-
+    const native = view.moveVertically(range, forward);
     const currentLine = doc.lineAt(range.head);
     const targetNumber = currentLine.number + direction;
-    if (targetNumber < 1 || targetNumber > doc.lines) return nativeRanges[index];
-    const targetLine = doc.line(targetNumber);
-    const column = range.head - currentLine.from;
-    const head = Math.min(targetLine.from + column, targetLine.to);
+    let head = native.head;
+
+    if (targetNumber >= 1 && targetNumber <= doc.lines) {
+      const nativeLine = doc.lineAt(native.head);
+      const adjacentLine = doc.line(targetNumber);
+      const skippedAdjacent =
+        Math.abs(nativeLine.number - currentLine.number) > 1 &&
+        MARKDOWN_TAG.test(adjacentLine.text);
+
+      if (skippedAdjacent) {
+        const column = range.head - currentLine.from;
+        head = Math.min(adjacentLine.from + column, adjacentLine.to);
+      }
+    }
 
     return extend
       ? EditorSelection.range(range.anchor, head)
@@ -37,26 +40,42 @@ function keepAdjacentDocumentLine(view, direction, extend) {
     scrollIntoView: true,
     userEvent: "select",
   });
-  return true;
 }
 
-const caretKeymap = Prec.highest(
-  keymap.of([
-    {
-      key: "ArrowUp",
-      run: (view) => keepAdjacentDocumentLine(view, -1, false),
-      shift: (view) => keepAdjacentDocumentLine(view, -1, true),
-    },
-    {
-      key: "ArrowDown",
-      run: (view) => keepAdjacentDocumentLine(view, 1, false),
-      shift: (view) => keepAdjacentDocumentLine(view, 1, true),
-    },
-  ])
+const cursorGuard = ViewPlugin.fromClass(
+  class {
+    constructor(view) {
+      this.view = view;
+      this.onKeyDown = (event) => {
+        if (
+          event.isComposing ||
+          event.altKey ||
+          event.ctrlKey ||
+          event.metaKey ||
+          (event.key !== "ArrowUp" && event.key !== "ArrowDown")
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        moveVertically(
+          this.view,
+          event.key === "ArrowDown" ? 1 : -1,
+          event.shiftKey
+        );
+      };
+      view.contentDOM.addEventListener("keydown", this.onKeyDown, true);
+    }
+
+    destroy() {
+      this.view.contentDOM.removeEventListener("keydown", this.onKeyDown, true);
+    }
+  }
 );
 
 module.exports = class TagsFlowPlugin extends Plugin {
   onload() {
-    this.registerEditorExtension(caretKeymap);
+    this.registerEditorExtension(cursorGuard);
   }
 };
