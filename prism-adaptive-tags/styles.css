@@ -32,6 +32,10 @@
   clip-path: polygon(0.62em 0, 100% 0, 100% 100%, 0.62em 100%, 0 50%);
 }
 
+.apt-soft {
+  border-radius: 0.38em;
+}
+
 .apt-hidden {
   display: none;
 }
@@ -232,4 +236,108 @@
 .apt-picker-row small {
   color: var(--text-muted);
   font-size: var(--font-ui-smaller);
+}
+
+.apt-inline-picker {
+  position: fixed;
+  z-index: var(--layer-popover, 1000);
+  display: flex;
+  width: 260px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 9px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 12px;
+  background: color-mix(
+    in srgb,
+    var(--background-primary) 92%,
+    transparent
+  );
+  box-shadow: 0 10px 32px rgb(0 0 0 / 28%), 0 2px 8px rgb(0 0 0 / 18%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px) scale(0.98);
+  transform-origin: bottom left;
+  transition: opacity 90ms ease, transform 90ms ease;
+  backdrop-filter: blur(14px);
+}
+
+.apt-inline-picker.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.apt-inline-picker__shapes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.apt-inline-picker__shape {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.apt-inline-picker__shape:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.apt-inline-picker__shape.is-selected {
+  background: color-mix(
+    in srgb,
+    var(--interactive-accent) 22%,
+    transparent
+  );
+  color: var(--interactive-accent);
+}
+
+.apt-inline-picker__shape svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.apt-inline-picker__divider {
+  height: 1px;
+  background: var(--background-modifier-border);
+}
+
+.apt-inline-picker__colors {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+}
+
+.apt-inline-picker__swatch {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  margin: auto;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--apt-fg) 24%, transparent);
+  border-radius: 50%;
+  background: var(--apt-bg) !important;
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform 80ms ease, box-shadow 80ms ease;
+}
+
+.apt-inline-picker__swatch:hover {
+  transform: scale(1.16);
+}
+
+.apt-inline-picker__swatch.is-selected {
+  box-shadow:
+    0 0 0 2px var(--background-primary),
+    0 0 0 4px var(--interactive-accent);
+  transform: scale(1.08);
 }
