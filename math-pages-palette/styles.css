@@ -112,7 +112,7 @@
   display: none !important;
 }
 
-/* Insert: колонка Cluddle 9rem — «Доказательство» не влезает */
+/* Insert: колонка Cluddle 9rem – «Доказательство» не влезает */
 .custom-callout-context-menu-group:has(.callout:is(
   [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
   [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
@@ -196,7 +196,7 @@
   border-color: rgb(var(--callout-color)) !important;
 }
 
-/* слот как у Lucide (~1em); размер и сдвиг — оптический центр с заголовком */
+/* слот как у Lucide (~1em); размер и сдвиг – оптический центр с заголовком */
 .callout:is(
   [data-callout="определение"], [data-callout="def"], [data-callout="definition"],
   [data-callout="теорема"], [data-callout="thm"], [data-callout="theorem"],
