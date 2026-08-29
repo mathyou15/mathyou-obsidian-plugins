@@ -354,10 +354,15 @@
   inset-inline-start: 0.12em;
   width: 1em;
   height: 1em;
-  border: 1px solid var(--apt-fg);
+  border: 1px solid
+    color-mix(in srgb, var(--apt-fg) 55%, var(--background-modifier-border));
   border-radius: 50%;
   box-sizing: border-box;
-  background: var(--apt-fg) !important;
+  background: linear-gradient(
+    135deg,
+    var(--apt-bg) 0 50%,
+    var(--apt-fg) 50% 100%
+  ) !important;
   box-shadow: none;
   content: "";
   transform: translateY(-50%);
@@ -369,9 +374,14 @@
   height: 20px;
   margin: auto;
   padding: 0;
-  border: 1px solid var(--apt-fg);
+  border: 1px solid
+    color-mix(in srgb, var(--apt-fg) 55%, var(--background-modifier-border));
   border-radius: 50%;
-  background: var(--apt-fg) !important;
+  background: linear-gradient(
+    135deg,
+    var(--apt-bg) 0 50%,
+    var(--apt-fg) 50% 100%
+  ) !important;
   box-shadow: none;
   cursor: pointer;
   transition: transform 80ms ease, box-shadow 80ms ease;
