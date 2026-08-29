@@ -1,0 +1,39 @@
+.print.prism-print,
+.print.prism-print .markdown-preview-view,
+.print.prism-print .callout,
+.print.prism-print .apt-tag,
+.print.prism-print .bn-tags,
+.print.prism-print pre,
+.print.prism-print code,
+.print.prism-print table,
+.print.prism-print blockquote,
+.print.prism-print .internal-embed {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+.print.prism-print,
+.print.prism-print .markdown-preview-view {
+  background-color: var(--background-primary) !important;
+  color: var(--text-normal) !important;
+}
+
+.print.prism-print.theme-dark,
+.print.prism-print.theme-dark .markdown-preview-view {
+  background-color: hsl(var(--background-primary-hsl, 0 0% 18%)) !important;
+  color: hsl(var(--text-normal-hsl, 0 0% 91%)) !important;
+}
+
+.print.prism-print.theme-light,
+.print.prism-print.theme-light .markdown-preview-view {
+  background-color: hsl(var(--background-primary-hsl, 0 0% 100%)) !important;
+  color: hsl(var(--text-normal-hsl, 0 0% 16%)) !important;
+}
+
+@media print {
+  .print.prism-print,
+  .print.prism-print .markdown-preview-view {
+    background-color: var(--background-primary) !important;
+    color: var(--text-normal) !important;
+  }
+}
