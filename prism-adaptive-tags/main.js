@@ -1,4 +1,4 @@
-const { Plugin, MarkdownView, SuggestModal, setIcon } = require("obsidian");
+const { Plugin, MarkdownView, SuggestModal, addIcon, setIcon } = require("obsidian");
 const { Decoration, ViewPlugin, WidgetType } = require("@codemirror/view");
 const { RangeSetBuilder } = require("@codemirror/state");
 
@@ -39,7 +39,7 @@ const SHAPES = [
     id: "pill",
     symbol: "",
     name: "Капсула",
-    icon: "circle",
+    icon: "apt-shape-pill",
     menuTitle: "Цветной тег",
     glyph:
       '<svg viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="9" rx="4.5"/></svg>',
@@ -48,7 +48,7 @@ const SHAPES = [
     id: "soft",
     symbol: "~",
     name: "Бейдж",
-    icon: "square",
+    icon: "apt-shape-badge",
     menuTitle: "Тег-бейдж",
     glyph:
       '<svg viewBox="0 0 24 24"><rect x="4" y="6.5" width="16" height="11" rx="2.5"/></svg>',
@@ -57,12 +57,27 @@ const SHAPES = [
     id: "arrow",
     symbol: "<",
     name: "Стрелка",
-    icon: "triangle",
+    icon: "apt-shape-arrow",
     menuTitle: "Тег-стрелка",
     glyph:
       '<svg viewBox="0 0 24 24"><path d="M4 12l4.5-5H17a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H8.5z"/></svg>',
   },
 ];
+
+function registerShapeIcons() {
+  addIcon(
+    "apt-shape-pill",
+    '<rect x="3.5" y="7.5" width="17" height="9" rx="4.5" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="1.75"/>'
+  );
+  addIcon(
+    "apt-shape-badge",
+    '<rect x="4" y="6.5" width="16" height="11" rx="2.5" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="1.75"/>'
+  );
+  addIcon(
+    "apt-shape-arrow",
+    '<path d="M4 12l4.5-5H17a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H8.5z" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>'
+  );
+}
 
 const TAG_PATTERN = String.raw`\(\((?<shape>[<~])?(?<color>[a-zа-яё-]+)\|(?<label>[^)\n]+)\)\)`;
 
@@ -573,6 +588,8 @@ class AdaptiveTagModal extends SuggestModal {
 
 module.exports = class PrismAdaptiveTagsPlugin extends Plugin {
   async onload() {
+    registerShapeIcons();
+
     const editorPlugin = ViewPlugin.fromClass(
       class {
         constructor(view) {
