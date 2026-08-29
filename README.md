@@ -22,6 +22,12 @@
 
 [Документация](./tags-flow/README.md)
 
+### Iconize Revival
+
+Возвращает нормальное редактирование shortcode-иконок Iconize. Курсор и выделение свободно входят в `:IconName:`, а вне активного диапазона снова показывается SVG.
+
+[Документация](./iconize-revival/README.md)
+
 ### Prism Print
 
 Печать и PDF в цветах Prism. Тёмная тема остаётся тёмной, светлая — светлой, текст и теги не выцветают.
@@ -35,4 +41,4 @@
 3. Перезапустите Obsidian.
 4. Включите плагины в разделе «Сторонние плагины».
 
-Для общего меню «Палитра» установите Math Pages Palette и Prism Adaptive Tags. Tags Flow имеет смысл держать включённым вместе с тегами. Для PDF в цветах Prism включите Prism Print рядом с Better Export PDF.
+Для общего меню «Палитра» установите Math Pages Palette и Prism Adaptive Tags. Tags Flow имеет смысл держать включённым вместе с тегами, а Iconize Revival – рядом с Iconize 2.14.7. Для PDF в цветах Prism включите Prism Print рядом с Better Export PDF.

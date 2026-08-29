@@ -1,0 +1,20 @@
+.iconize-revival-icon {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  cursor: text;
+  line-height: 1;
+  vertical-align: -0.12em;
+}
+
+.iconize-revival-icon > svg,
+.iconize-revival-icon > img {
+  width: 1em !important;
+  height: 1em !important;
+  max-width: 1em;
+  max-height: 1em;
+  flex: 0 0 1em;
+}
