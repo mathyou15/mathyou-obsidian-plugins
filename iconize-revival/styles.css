@@ -18,3 +18,8 @@
   max-height: 1em;
   flex: 0 0 1em;
 }
+
+.iconize-revival-source-hidden {
+  font-size: 0;
+  letter-spacing: 0;
+}

@@ -1,6 +1,6 @@
 const { Notice, Plugin } = require("obsidian");
 const { Decoration, ViewPlugin, WidgetType } = require("@codemirror/view");
-const { EditorSelection, EditorState } = require("@codemirror/state");
+const { EditorSelection } = require("@codemirror/state");
 
 const ICONIZE_ID = "obsidian-icon-folder";
 const SUPPORTED_ICONIZE_VERSION = "2.14.7";
@@ -13,15 +13,26 @@ function selectionTouchesRange(selection, from, to) {
 }
 
 function lineHasIcon(state, plugin, line) {
-  const positionField = plugin.getIconize()?.positionField;
+  const iconize = plugin.getIconize();
+  const positionField = iconize?.positionField;
   const iconInfo = positionField && state.field(positionField, false);
-  if (!iconInfo) return false;
-
   let found = false;
-  iconInfo.between(line.from, line.to, () => {
+  iconInfo?.between(line.from, line.to, () => {
     found = true;
   });
-  return found;
+  if (found) return true;
+
+  const identifier = iconize?.getSettings?.().iconIdentifier || ":";
+  const text = line.text;
+  let from = text.indexOf(identifier);
+  while (from !== -1) {
+    const to = text.indexOf(identifier, from + identifier.length);
+    if (to === -1) break;
+    const iconId = text.slice(from + identifier.length, to);
+    if (iconize?.api?.getIconByName?.(iconId)) return true;
+    from = text.indexOf(identifier, to + identifier.length);
+  }
+  return false;
 }
 
 function isSingleVisualRow(view, line) {
@@ -32,7 +43,6 @@ function isSingleVisualRow(view, line) {
 }
 
 function createVerticalNavigationExtensions(plugin) {
-  const pendingNavigation = new WeakMap();
   const probe = ViewPlugin.fromClass(
     class {
       constructor(view) {
@@ -48,13 +58,40 @@ function createVerticalNavigationExtensions(plugin) {
             return;
           }
 
-          const line = view.state.doc.lineAt(view.state.selection.main.head);
-          pendingNavigation.set(view.state, {
-            direction: event.key === "ArrowDown" ? 1 : -1,
-            extend: event.shiftKey,
-            singleVisualRow: isSingleVisualRow(view, line),
+          const { doc, selection } = view.state;
+          const direction = event.key === "ArrowDown" ? 1 : -1;
+          const ranges = [];
+          for (const range of selection.ranges) {
+            const currentLine = doc.lineAt(range.head);
+            const targetNumber = currentLine.number + direction;
+            if (
+              targetNumber < 1 ||
+              targetNumber > doc.lines ||
+              !isSingleVisualRow(view, currentLine)
+            ) {
+              return;
+            }
+
+            const targetLine = doc.line(targetNumber);
+            if (!lineHasIcon(view.state, plugin, targetLine)) return;
+
+            const column = range.head - currentLine.from;
+            const head =
+              targetLine.from + Math.min(column, targetLine.length);
+            ranges.push(
+              event.shiftKey
+                ? EditorSelection.range(range.anchor, head)
+                : EditorSelection.cursor(head)
+            );
+          }
+
+          event.preventDefault();
+          event.stopPropagation();
+          view.dispatch({
+            selection: EditorSelection.create(ranges, selection.mainIndex),
+            scrollIntoView: true,
+            userEvent: "select",
           });
-          window.setTimeout(() => pendingNavigation.delete(view.state), 0);
         };
         view.dom.addEventListener("keydown", this.onKeyDown, true);
       }
@@ -64,72 +101,65 @@ function createVerticalNavigationExtensions(plugin) {
       }
     }
   );
-
-  const filter = EditorState.transactionFilter.of((transaction) => {
-    const navigation = pendingNavigation.get(transaction.startState);
-    if (!navigation || transaction.docChanged) return transaction;
-    pendingNavigation.delete(transaction.startState);
-
-    const { doc, selection } = transaction.startState;
-    const ranges = selection.ranges.map((range, index) => {
-      const native =
-        transaction.newSelection.ranges[index] ||
-        transaction.newSelection.main;
-      const currentLine = doc.lineAt(range.head);
-      const targetNumber = currentLine.number + navigation.direction;
-      if (targetNumber < 1 || targetNumber > doc.lines) return native;
-
-      const targetLine = doc.line(targetNumber);
-      if (!lineHasIcon(transaction.startState, plugin, targetLine)) {
-        return native;
-      }
-
-      const nativeLine = doc.lineAt(native.head);
-      if (
-        nativeLine.number === currentLine.number &&
-        !navigation.singleVisualRow
-      ) {
-        return native;
-      }
-
-      const column = range.head - currentLine.from;
-      const head = targetLine.from + Math.min(column, targetLine.length);
-      return navigation.extend
-        ? EditorSelection.range(range.anchor, head)
-        : EditorSelection.cursor(head);
-    });
-
-    const corrected = EditorSelection.create(ranges, selection.mainIndex);
-    if (corrected.eq(transaction.newSelection)) return transaction;
-    return [
-      transaction,
-      {
-        sequential: true,
-        selection: corrected,
-        scrollIntoView: true,
-      },
-    ];
-  });
-
-  return [probe, filter];
+  return [probe];
 }
 
 class EditableIconWidget extends WidgetType {
-  constructor(plugin, iconId, from, to) {
+  constructor(plugin, iconId) {
     super();
     this.plugin = plugin;
     this.iconId = iconId;
-    this.from = from;
-    this.to = to;
   }
 
   eq(other) {
     return (
       other instanceof EditableIconWidget &&
-      other.iconId === this.iconId &&
-      other.from === this.from &&
-      other.to === this.to
+      other.iconId === this.iconId
     );
+  }
+
+  findCurrentRange(view, wrap) {
+    const positionField = this.plugin.getIconize()?.positionField;
+    const iconInfo = positionField && view.state.field(positionField, false);
+
+    let position = view.state.selection.main.head;
+    try {
+      position = view.posAtDOM(wrap, 0);
+    } catch {
+      // Fall back to the current selection and a textual shortcode lookup.
+    }
+
+    let nearest = null;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+    const searchFrom = Math.max(0, position - 128);
+    const searchTo = Math.min(view.state.doc.length, position + 128);
+    iconInfo?.between(searchFrom, searchTo, (from, to, value) => {
+      if (value.iconId !== this.iconId) return;
+      const distance =
+        position < from ? from - position : position > to ? position - to : 0;
+      if (distance < nearestDistance) {
+        nearest = { from, to };
+        nearestDistance = distance;
+      }
+    });
+    if (nearest) return nearest;
+
+    const identifier =
+      this.plugin.getIconize()?.getSettings?.().iconIdentifier || ":";
+    const shortcode = `${identifier}${this.iconId}${identifier}`;
+    const documentText = view.state.doc.toString();
+    let index = documentText.indexOf(shortcode);
+    while (index !== -1) {
+      const to = index + shortcode.length;
+      const distance =
+        position < index ? index - position : position > to ? position - to : 0;
+      if (distance < nearestDistance) {
+        nearest = { from: index, to };
+        nearestDistance = distance;
+      }
+      index = documentText.indexOf(shortcode, index + shortcode.length);
+    }
+    return nearest;
   }
 
   toDOM(view) {
@@ -154,9 +184,11 @@ class EditableIconWidget extends WidgetType {
       if (event.button !== 0) return;
       event.preventDefault();
       event.stopPropagation();
-      const anchor = Math.min(this.to - 1, this.from + 1);
+      const range = this.findCurrentRange(view, wrap);
+      if (!range) return;
+      const anchor = Math.min(range.to - 1, range.from + 1);
       view.dispatch({
-        selection: { anchor: Math.max(this.from, anchor) },
+        selection: { anchor: Math.max(range.from, anchor) },
         scrollIntoView: true,
       });
       view.focus();
@@ -170,13 +202,13 @@ class EditableIconWidget extends WidgetType {
   }
 }
 
-function buildDecorations(view, plugin) {
+function collectVisibleIcons(view, plugin) {
   const iconize = plugin.getIconize();
   const positionField = iconize?.positionField;
-  if (!positionField) return Decoration.none;
+  if (!positionField) return [];
 
   const iconInfo = view.state.field(positionField, false);
-  if (!iconInfo) return Decoration.none;
+  if (!iconInfo) return [];
 
   const ranges = [];
   const seen = new Set();
@@ -196,27 +228,93 @@ function buildDecorations(view, plugin) {
   }
 
   ranges.sort((left, right) => left.from - right.from || left.to - right.to);
-  const decorations = [];
-  for (const range of ranges) {
-    if (
-      selectionTouchesRange(view.state.selection, range.from, range.to)
-    ) {
-      continue;
-    }
-    decorations.push(
-      Decoration.replace({
-        widget: new EditableIconWidget(
-          plugin,
-          range.iconId,
-          range.from,
-          range.to
-        ),
-        side: -1,
-      }).range(range.from, range.to)
-    );
+  return ranges.filter(
+    (range) =>
+      !selectionTouchesRange(view.state.selection, range.from, range.to)
+  );
+}
+
+function decorationKey(from, to, decoration) {
+  const widget = decoration.spec?.widget;
+  if (widget instanceof EditableIconWidget) {
+    return `widget:${from}:${widget.iconId}`;
   }
+  const iconId =
+    decoration.spec?.attributes?.["data-iconize-revival-source"];
+  return iconId ? `source:${from}:${to}:${iconId}` : null;
+}
+
+function makeIconDecorations(plugin, range) {
+  return [
+    Decoration.widget({
+      widget: new EditableIconWidget(plugin, range.iconId),
+      side: -1,
+    }).range(range.from),
+    Decoration.mark({
+      class: "iconize-revival-source-hidden",
+      attributes: {
+        "data-iconize-revival-source": range.iconId,
+      },
+    }).range(range.from, range.to),
+  ];
+}
+
+function buildDecorations(view, plugin) {
+  const ranges = collectVisibleIcons(view, plugin);
+  const decorations = ranges.flatMap((range) =>
+    makeIconDecorations(plugin, range)
+  );
 
   return Decoration.set(decorations, true);
+}
+
+function reconcileDecorations(view, plugin, previous, changes) {
+  const mapped = changes ? previous.map(changes) : previous;
+  const desired = new Map();
+  for (const iconRange of collectVisibleIcons(view, plugin)) {
+    for (const range of makeIconDecorations(plugin, iconRange)) {
+      desired.set(
+        decorationKey(range.from, range.to, range.value),
+        range
+      );
+    }
+  }
+  const retained = new Set();
+  const fallback = new Set();
+
+  mapped.between(0, view.state.doc.length, (from, to, decoration) => {
+    const iconId =
+      decoration.spec?.attributes?.["data-iconize-revival-source"];
+    if (!iconId) return;
+    if (selectionTouchesRange(view.state.selection, from, to)) return;
+    const stillVisible = view.visibleRanges.some(
+      (visible) => from <= visible.to + 1 && to >= visible.from - 1
+    );
+    if (!stillVisible) return;
+
+    const identifier =
+      plugin.getIconize()?.getSettings?.().iconIdentifier || ":";
+    const currentText = view.state.doc.sliceString(from, to);
+    if (currentText !== `${identifier}${iconId}${identifier}`) return;
+    fallback.add(decorationKey(from, to, decoration));
+    fallback.add(`widget:${from}:${iconId}`);
+  });
+
+  mapped.between(0, view.state.doc.length, (from, to, decoration) => {
+    const key = decorationKey(from, to, decoration);
+    if (!key || (!desired.has(key) && !fallback.has(key))) return;
+    retained.add(key);
+    desired.delete(key);
+  });
+
+  return mapped.update({
+    filter: (from, to, decoration) => {
+      const key = decorationKey(from, to, decoration);
+      return Boolean(key && retained.has(key));
+    },
+    add: Array.from(desired.values()),
+    sort: true,
+  });
 }
 
 function createEditableIconExtension(plugin) {
@@ -227,7 +325,12 @@ function createEditableIconExtension(plugin) {
       }
 
       update(update) {
-        this.decorations = buildDecorations(update.view, plugin);
+        this.decorations = reconcileDecorations(
+          update.view,
+          plugin,
+          this.decorations,
+          update.docChanged ? update.changes : null
+        );
       }
     },
     {
