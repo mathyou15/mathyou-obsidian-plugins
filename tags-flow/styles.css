@@ -2,14 +2,9 @@
    CodeMirror maps the caret through inline text nodes; inline-block/flex
    makes ArrowUp/Down miss the line. Keep the pill look, stay inline. */
 .cm-editor .bn-tags,
-.cm-editor .apt-tag {
+.cm-editor .bn-arrow-tags {
   display: inline !important;
   height: auto !important;
   min-height: 0 !important;
   vertical-align: baseline !important;
-}
-
-.cm-editor .bn-arrow-tags {
-  display: inline !important;
-  height: auto !important;
 }
