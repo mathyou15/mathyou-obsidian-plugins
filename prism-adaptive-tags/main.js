@@ -41,7 +41,8 @@ const SHAPES = [
     name: "Капсула",
     icon: "circle",
     menuTitle: "Цветной тег",
-    glyph: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>',
+    glyph:
+      '<svg viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="9" rx="4.5"/></svg>',
   },
   {
     id: "soft",
@@ -49,7 +50,8 @@ const SHAPES = [
     name: "Бейдж",
     icon: "square",
     menuTitle: "Тег-бейдж",
-    glyph: '<svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="10" rx="2.5"/></svg>',
+    glyph:
+      '<svg viewBox="0 0 24 24"><rect x="4" y="6.5" width="16" height="11" rx="2.5"/></svg>',
   },
   {
     id: "arrow",
@@ -57,7 +59,8 @@ const SHAPES = [
     name: "Стрелка",
     icon: "triangle",
     menuTitle: "Тег-стрелка",
-    glyph: '<svg viewBox="0 0 24 24"><path d="M9 7l8 5-8 5z"/></svg>',
+    glyph:
+      '<svg viewBox="0 0 24 24"><path d="M4 12l4.5-5H17a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H8.5z"/></svg>',
   },
 ];
 
@@ -91,22 +94,27 @@ function appendShapeGlyph(el, shape) {
   svg.setAttribute("aria-hidden", "true");
 
   if (shape.id === "pill") {
-    const circle = doc.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute("cx", "12");
-    circle.setAttribute("cy", "12");
-    circle.setAttribute("r", "7");
-    svg.append(circle);
+    const rect = doc.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", "3.5");
+    rect.setAttribute("y", "7.5");
+    rect.setAttribute("width", "17");
+    rect.setAttribute("height", "9");
+    rect.setAttribute("rx", "4.5");
+    svg.append(rect);
   } else if (shape.id === "soft") {
     const rect = doc.createElementNS("http://www.w3.org/2000/svg", "rect");
-    rect.setAttribute("x", "5");
-    rect.setAttribute("y", "7");
-    rect.setAttribute("width", "14");
-    rect.setAttribute("height", "10");
+    rect.setAttribute("x", "4");
+    rect.setAttribute("y", "6.5");
+    rect.setAttribute("width", "16");
+    rect.setAttribute("height", "11");
     rect.setAttribute("rx", "2.5");
     svg.append(rect);
   } else {
     const path = doc.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("d", "M8 6l10 6-10 6z");
+    path.setAttribute(
+      "d",
+      "M4 12l4.5-5H17a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H8.5z"
+    );
     svg.append(path);
   }
 

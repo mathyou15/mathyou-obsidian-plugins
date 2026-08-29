@@ -297,13 +297,17 @@
 }
 
 .apt-inline-picker__shape svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
+  width: 20px;
+  height: 20px;
+  fill: color-mix(in srgb, currentColor 14%, transparent);
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.75;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.apt-inline-picker__shape.is-selected svg {
+  fill: color-mix(in srgb, currentColor 24%, transparent);
 }
 
 .apt-inline-picker__clear {
