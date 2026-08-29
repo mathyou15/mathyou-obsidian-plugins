@@ -13,7 +13,7 @@
 
 ## Быстрая смена оформления
 
-![Быстрая смена цвета и формы тега](./assets/picker-dark.png)
+![Быстрая смена цвета и формы тега](https://mathyou15.github.io/mathyou-obsidian-plugins/prism-adaptive-tags/assets/picker-dark.png)
 
 Поставьте курсор внутрь тега и выберите цвет или форму.
 
